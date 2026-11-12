@@ -2,6 +2,11 @@
 
 This is the website for EasyServe Online Centre in Nallamkallu, Edakkazhiyur.
 
+**Live site: https://easyserve-one.vercel.app**
+
+This is the free Vercel address. It will change to your own domain once you connect one. See
+"Connecting your own domain" below.
+
 EasyServe helps people get government papers done. Things like ration cards, income
 certificates and PAN cards.
 
@@ -72,6 +77,7 @@ again.
 | The terms page | `src/app/(en)/terms/page.tsx` |
 | The privacy page | `src/app/(en)/privacy/page.tsx` |
 | The photos on the home and services pages | `public/images/` |
+| The small icon in the browser tab | `src/app/favicon.ico`, `src/app/icon.png`, `src/app/apple-icon.png` |
 | The logo | `public/brand/easyserve-logo.png` (full logo) and `easyserve-mark.png` (just the ES sign) |
 
 ### How to add a new service
