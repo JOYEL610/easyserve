@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import type { Lang } from "@/content/services";
 import { getDict } from "@/i18n/dict";
+import { BackToTop } from "./BackToTop";
 import { Analytics, CookieBanner } from "./CookieConsent";
 import { Footer } from "./Footer";
 import { Header } from "./Header";
@@ -21,6 +22,7 @@ export function SiteFrame({ lang, children }: { lang: Lang; children: ReactNode 
         {children}
       </main>
       <Footer lang={lang} />
+      <BackToTop label={t.backToTop} />
       <CookieBanner lang={lang} />
       <Analytics />
     </div>

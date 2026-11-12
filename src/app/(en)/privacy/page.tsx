@@ -123,6 +123,7 @@ export default function PrivacyPage() {
       <h3>Essential cookies (always on)</h3>
       <ul>
         <li><strong>es_session</strong> keeps you logged in. Set when you log in, removed when you log out, expires after 7 days.</li>
+        <li><strong>es_role</strong> lets the menu show “My account” while you are logged in. Set and removed together with es_session.</li>
         <li><strong>es_consent</strong> remembers your cookie choice. Expires after 6 months.</li>
       </ul>
       <h3>Analytics cookies (only if you accept)</h3>

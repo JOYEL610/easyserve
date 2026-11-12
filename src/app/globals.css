@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 @theme inline {
-  --font-sans: var(--font-manrope), var(--font-anek-ml), ui-sans-serif, system-ui, sans-serif;
-  --font-ml: var(--font-anek-ml), var(--font-manrope), sans-serif;
+  --font-sans: var(--font-inter), var(--font-anek-ml), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-jakarta), var(--font-anek-ml), ui-sans-serif, system-ui, sans-serif;
 
   --color-forest-950: #04260c;
   --color-forest-900: #06350f;
@@ -34,9 +34,17 @@ body {
   background: var(--color-paper);
   color: var(--color-ink);
   font-family: var(--font-sans);
-  font-feature-settings: "ss01", "cv11";
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+}
+
+@layer base {
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    letter-spacing: 0;
+  }
 }
 
 /* Malayalam pages: the script needs more leading than Latin, and letter

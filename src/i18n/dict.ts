@@ -28,8 +28,30 @@ const en = {
   enquiryMessage: "Hi EasyServe, I have an enquiry.",
   call: "Call",
 
+  account: {
+    label: "Account",
+    mine: "My account",
+    mineHint: "Your requests and their status",
+    dashboard: "Requests dashboard",
+    dashboardHint: "All customer requests",
+    logout: "Log out",
+  },
+  backToTop: "Back to top",
+  table: { service: "Service", about: "What it is", documents: "Documents" },
+  images: {
+    ids: "Indian passport on a desk",
+    certificates: "Hands filling in an application form",
+    applications: "Hands typing on a laptop",
+    desk: "Office printer and scanner",
+    steps: [
+      "Person sending a message on a phone",
+      "Photographing papers with a phone",
+      "Typing an application on a laptop",
+      "Going through papers together at a desk",
+    ],
+  },
+
   hero: {
-    eyebrow: "Online service centre",
     title: "Government certificates and applications, done from wherever you are.",
     lead: "Send your documents on WhatsApp. We file the application and send the certificate back to you. Pick a service to see what to bring.",
     searchLabel: "Which service do you need?",
@@ -41,7 +63,7 @@ const en = {
   },
 
   slip: {
-    eyebrow: "What to bring",
+    subtitle: "Documents to bring",
     ready: (a: number, b: number) => `${a} of ${b} ready`,
     send: "Send this list on WhatsApp",
     ask: "Ask what to bring",
@@ -96,8 +118,7 @@ const en = {
   servicesPage: {
     metaTitle: "All services and documents required",
     metaDescription:
-      "Every service EasyServe handles in Edakkazhiyur, with the documents each one needs: Aadhaar, ration card, PAN, voter ID, income, caste, nativity, birth, death and marriage certificates, Udyam, FSSAI and more.",
-    count: (n: number) => `${n} services`,
+      "All EasyServe services in Edakkazhiyur and the documents each needs: Aadhaar, ration card, PAN, voter ID, income, caste and marriage certificates, Udyam, FSSAI.",
     title: "Services and the documents each one needs",
     lead: "Open a service to see its checklist. Tick what you already have and send us the list on WhatsApp.",
     missingTitle: "Not on the list?",
@@ -147,7 +168,7 @@ const en = {
   home: {
     metaTitle: "EasyServe Online Centre | Government certificates and online applications, Edakkazhiyur",
     metaDescription:
-      "EasyServe Online Centre in Nallamkallu, Edakkazhiyur handles government certificates and online applications for you: ration card, income certificate, PAN, voter ID, marriage and birth certificates, Udyam, FSSAI and more. Send your documents on WhatsApp from anywhere.",
+      "EasyServe Online Centre, Edakkazhiyur: ration card, income certificate, PAN, voter ID, marriage and birth certificates, Udyam and more. Apply on WhatsApp."
   },
 };
 
@@ -176,8 +197,30 @@ const ml: Dict = {
   enquiryMessage: "ഹായ് EasyServe, എനിക്ക് ഒരു കാര്യം അന്വേഷിക്കാനുണ്ട്.",
   call: "വിളിക്കൂ",
 
+  account: {
+    label: "അക്കൗണ്ട്",
+    mine: "എന്റെ അക്കൗണ്ട്",
+    mineHint: "നിങ്ങളുടെ റിക്വസ്റ്റുകളും അവയുടെ സ്ഥിതിയും",
+    dashboard: "റിക്വസ്റ്റ് ഡാഷ്ബോർഡ്",
+    dashboardHint: "എല്ലാ കസ്റ്റമർ റിക്വസ്റ്റുകളും",
+    logout: "ലോഗൗട്ട്",
+  },
+  backToTop: "മുകളിലേക്ക്",
+  table: { service: "സേവനം", about: "വിവരണം", documents: "രേഖകൾ" },
+  images: {
+    ids: "മേശപ്പുറത്ത് ഇന്ത്യൻ പാസ്‌പോർട്ട്",
+    certificates: "അപേക്ഷാ ഫോം പൂരിപ്പിക്കുന്ന കൈകൾ",
+    applications: "ലാപ്ടോപ്പിൽ ടൈപ്പ് ചെയ്യുന്ന കൈകൾ",
+    desk: "ഓഫീസ് പ്രിന്ററും സ്കാനറും",
+    steps: [
+      "ഫോണിൽ മെസ്സേജ് അയക്കുന്ന ആൾ",
+      "ഫോൺ ഉപയോഗിച്ച് രേഖകളുടെ ഫോട്ടോ എടുക്കുന്നു",
+      "ലാപ്ടോപ്പിൽ അപേക്ഷ ടൈപ്പ് ചെയ്യുന്നു",
+      "മേശയ്ക്കരികിൽ രേഖകൾ ഒരുമിച്ച് പരിശോധിക്കുന്നു",
+    ],
+  },
+
   hero: {
-    eyebrow: "ജനസേവന കേന്ദ്രം",
     title: "സർക്കാർ സർട്ടിഫിക്കറ്റുകളും അപേക്ഷകളും, എവിടെ ഇരുന്നുകൊണ്ടും.",
     lead: "രേഖകൾ വാട്സ്ആപ്പിൽ അയക്കൂ. അപേക്ഷ ഞങ്ങൾ സമർപ്പിച്ച് സർട്ടിഫിക്കറ്റ് നിങ്ങൾക്ക് അയച്ചുതരാം. എന്തൊക്കെ രേഖകൾ വേണമെന്ന് കാണാൻ ഒരു സേവനം തിരഞ്ഞെടുക്കൂ.",
     searchLabel: "ഏത് സേവനമാണ് വേണ്ടത്?",
@@ -189,7 +232,7 @@ const ml: Dict = {
   },
 
   slip: {
-    eyebrow: "കൊണ്ടുവരേണ്ട രേഖകൾ",
+    subtitle: "കൊണ്ടുവരേണ്ട രേഖകൾ",
     ready: (a: number, b: number) => `${b}-ൽ ${a} തയ്യാർ`,
     send: "ഈ ലിസ്റ്റ് വാട്സ്ആപ്പിൽ അയക്കൂ",
     ask: "എന്തൊക്കെ വേണമെന്ന് ചോദിക്കൂ",
@@ -245,7 +288,6 @@ const ml: Dict = {
     metaTitle: "എല്ലാ സേവനങ്ങളും ആവശ്യമായ രേഖകളും",
     metaDescription:
       "എടക്കഴിയൂരിലെ EasyServe ചെയ്യുന്ന എല്ലാ സേവനങ്ങളും ഓരോന്നിനും വേണ്ട രേഖകളും: ആധാർ, റേഷൻ കാർഡ്, പാൻ, വോട്ടർ ഐഡി, വരുമാന, ജാതി, നേറ്റിവിറ്റി, ജനന, മരണ, വിവാഹ സർട്ടിഫിക്കറ്റുകൾ, ഉദ്യം, FSSAI.",
-    count: (n: number) => `${n} സേവനങ്ങൾ`,
     title: "സേവനങ്ങളും ഓരോന്നിനും വേണ്ട രേഖകളും",
     lead: "ഒരു സേവനം തുറന്നാൽ അതിന്റെ ചെക്ക്‌ലിസ്റ്റ് കാണാം. കൈയിലുള്ളവ ടിക്ക് ചെയ്ത് ലിസ്റ്റ് വാട്സ്ആപ്പിൽ അയക്കൂ.",
     missingTitle: "ലിസ്റ്റിൽ ഇല്ലേ?",
@@ -295,7 +337,7 @@ const ml: Dict = {
   home: {
     metaTitle: "EasyServe ഓൺലൈൻ സെന്റർ | സർക്കാർ സർട്ടിഫിക്കറ്റുകളും ഓൺലൈൻ അപേക്ഷകളും, എടക്കഴിയൂർ",
     metaDescription:
-      "എടക്കഴിയൂർ നാലാംകല്ലിലെ EasyServe ഓൺലൈൻ സെന്റർ സർക്കാർ സർട്ടിഫിക്കറ്റുകളും ഓൺലൈൻ അപേക്ഷകളും ചെയ്തുതരുന്നു: റേഷൻ കാർഡ്, വരുമാന സർട്ടിഫിക്കറ്റ്, പാൻ, വോട്ടർ ഐഡി, വിവാഹ, ജനന സർട്ടിഫിക്കറ്റുകൾ, ഉദ്യം, FSSAI. എവിടെ നിന്നും വാട്സ്ആപ്പിൽ രേഖകൾ അയക്കാം.",
+      "എടക്കഴിയൂരിലെ EasyServe ഓൺലൈൻ സെന്റർ: റേഷൻ കാർഡ്, വരുമാന സർട്ടിഫിക്കറ്റ്, പാൻ, വോട്ടർ ഐഡി, വിവാഹ, ജനന സർട്ടിഫിക്കറ്റുകൾ, ഉദ്യം. വാട്സ്ആപ്പിൽ അപേക്ഷിക്കാം."
   },
 };
 

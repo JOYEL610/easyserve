@@ -1,21 +1,30 @@
 import type { Metadata, Viewport } from "next";
-import { Anek_Malayalam, Manrope } from "next/font/google";
+import { Anek_Malayalam, Inter, Plus_Jakarta_Sans } from "next/font/google";
 import { JsonLd } from "@/components/JsonLd";
 import { services } from "@/content/services";
 import { getDict } from "@/i18n/dict";
 import { site } from "@/lib/site";
 import "./globals.css";
 
-const manrope = Manrope({
-  variable: "--font-manrope",
+/* Headings: Plus Jakarta Sans. Body: Inter. Malayalam falls through to Anek Malayalam. */
+const jakarta = Plus_Jakarta_Sans({
+  variable: "--font-jakarta",
   subsets: ["latin"],
   display: "swap",
 });
 
+const inter = Inter({
+  variable: "--font-inter",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+/* Not preloaded: English pages never need it, Malayalam pages fetch it on demand. */
 const anekMalayalam = Anek_Malayalam({
   variable: "--font-anek-ml",
   subsets: ["malayalam"],
   display: "swap",
+  preload: false,
 });
 
 const home = getDict("en").home;
@@ -62,7 +71,11 @@ const business = {
     postalCode: site.address.postalCode,
     addressCountry: site.address.country,
   },
-  areaServed: { "@type": "AdministrativeArea", name: "Kerala" },
+  areaServed: ["Edakkazhiyur", "Chavakkad", "Guruvayur", "Thrissur", "Kerala"].map((name) => ({
+    "@type": "Place",
+    name,
+  })),
+  knowsLanguage: ["en", "ml"],
   sameAs: [site.instagram],
   contactPoint: {
     "@type": "ContactPoint",
@@ -89,12 +102,23 @@ const business = {
  * Shared shell. The header, footer and cookie banner live in the language
  * layouts: app/(en)/layout.tsx for English and app/ml/layout.tsx for Malayalam.
  */
+const website = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": `${site.url}/#website`,
+  name: site.legalName,
+  url: site.url,
+  inLanguage: ["en-IN", "ml"],
+  publisher: { "@id": `${site.url}/#business` },
+};
+
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en-IN" className={`${manrope.variable} ${anekMalayalam.variable}`}>
+    <html lang="en-IN" className={`${jakarta.variable} ${inter.variable} ${anekMalayalam.variable}`}>
       <body>
         {children}
         <JsonLd data={business} />
+        <JsonLd data={website} />
       </body>
     </html>
   );

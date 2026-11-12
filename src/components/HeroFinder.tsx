@@ -71,6 +71,9 @@ export function HeroFinder({
               autoComplete="off"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && results.length > 0) setSlug(results[0].slug);
+              }}
               placeholder={t.placeholder}
               className="h-14 w-full rounded-xl border-2 border-transparent bg-white pl-12 pr-4 text-base font-semibold text-ink placeholder:font-medium placeholder:text-ink-soft/80 focus:border-turmeric focus:outline-none"
             />

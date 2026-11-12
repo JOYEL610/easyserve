@@ -13,7 +13,6 @@ export const metadata: Metadata = {
 export default function RegisterPage() {
   return (
     <AuthShell
-      eyebrow="Customers"
       title="Create your account"
       intro="An account lets you raise a request and see where each application stands. You can also use EasyServe on WhatsApp without one."
       footer={

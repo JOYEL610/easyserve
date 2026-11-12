@@ -48,8 +48,7 @@ async function Dashboard({ searchParams }: { searchParams: Promise<{ status?: st
     <>
       <div className="flex flex-wrap items-end justify-between gap-4 border-b border-rule pb-6">
         <div>
-          <p className="text-xs font-extrabold uppercase tracking-[0.16em] text-leaf-700">Admin</p>
-          <h1 className="mt-2 text-3xl font-extrabold tracking-[-0.02em] text-forest-900 sm:text-4xl">
+          <h1 className="text-3xl font-extrabold text-forest-900 sm:text-4xl">
             Customer requests
           </h1>
           <p className="mt-1 text-ink-soft">
@@ -97,7 +96,7 @@ async function Dashboard({ searchParams }: { searchParams: Promise<{ status?: st
                     <StatusBadge status={String(row.status)} />
                     <span className="text-sm font-bold tabular-nums text-ink-soft">{id}</span>
                   </div>
-                  <h2 className="mt-3 text-xl font-extrabold leading-snug tracking-tight text-forest-900">
+                  <h2 className="mt-3 text-xl font-extrabold leading-snug text-forest-900">
                     {service?.name ?? String(row.service_slug)}
                   </h2>
                   <p className="mt-1 font-bold text-ink">

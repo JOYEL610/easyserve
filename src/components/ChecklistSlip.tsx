@@ -56,10 +56,8 @@ export function ChecklistSlip({
     <div className="slip">
       <div className="flex items-start justify-between gap-4 border-b border-dashed border-rule px-5 pb-4 pt-5 sm:px-6">
         <div>
-          <p className="text-[0.68rem] font-extrabold uppercase tracking-[0.18em] text-leaf-700">{t.eyebrow}</p>
-          <Heading className="mt-1 text-xl font-extrabold leading-tight tracking-tight text-forest-900">
-            {slipName}
-          </Heading>
+          <Heading className="text-xl font-extrabold leading-snug text-forest-900">{slipName}</Heading>
+          <p className="mt-0.5 text-sm font-semibold text-leaf-700">{t.subtitle}</p>
         </div>
         {variant.documents.length > 0 ? (
           <p className="shrink-0 rounded-md bg-mint-100 px-2.5 py-1.5 text-xs font-extrabold tabular-nums text-forest-900">

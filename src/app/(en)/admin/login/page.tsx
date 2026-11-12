@@ -10,7 +10,6 @@ export const metadata: Metadata = {
 export default function AdminLoginPage() {
   return (
     <AuthShell
-      eyebrow="EasyServe staff"
       title="Admin login"
       intro="For EasyServe staff. Customers should use the customer login."
     >

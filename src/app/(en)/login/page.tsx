@@ -13,7 +13,6 @@ export const metadata: Metadata = {
 export default function LoginPage() {
   return (
     <AuthShell
-      eyebrow="Customers"
       title="Customer login"
       intro="Log in to raise a request and follow the status of your applications."
       footer={

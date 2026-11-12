@@ -31,8 +31,8 @@ export function FullLogo({ className = "size-32" }: { className?: string }) {
 
 export function Wordmark({ tagline }: { tagline: string }) {
   return (
-    <span lang="en" className="leading-none">
-      <span className="block text-[1.2rem] font-extrabold italic tracking-tight text-ink">
+    <span lang="en" className="hidden leading-none min-[350px]:block">
+      <span className="block font-display text-[1.1rem] font-extrabold italic text-ink sm:text-[1.2rem]">
         Easy<span className="text-leaf-600">Serve</span>
       </span>
       <span className="mt-1 hidden whitespace-nowrap text-[0.62rem] font-bold uppercase tracking-[0.2em] text-forest-800 min-[420px]:block">

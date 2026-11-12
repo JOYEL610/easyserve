@@ -20,7 +20,7 @@ export function LangSwitch() {
       hrefLang={isMl ? "en" : "ml"}
       lang={isMl ? "en" : "ml"}
       aria-label={t.switchLabel}
-      className="inline-flex min-h-[2.75rem] items-center whitespace-nowrap rounded-lg border border-rule px-3 text-sm font-bold text-forest-900 hover:border-leaf-700 hover:bg-mint-100"
+      className="inline-flex min-h-[2.75rem] items-center whitespace-nowrap rounded-lg border border-rule px-2.5 text-sm font-bold sm:px-3 text-forest-900 hover:border-leaf-700 hover:bg-mint-100"
     >
       {t.switchTo}
     </Link>

@@ -5,8 +5,7 @@ export default function NotFound() {
   return (
     <SiteFrame lang="en">
       <div className="shell py-20 md:py-28">
-        <p className="text-xs font-extrabold uppercase tracking-[0.16em] text-leaf-700">Page not found</p>
-        <h1 className="mt-3 max-w-xl text-4xl font-extrabold tracking-[-0.03em] text-forest-900">
+        <h1 className="max-w-xl text-4xl font-extrabold text-forest-900">
           This page does not exist.
         </h1>
         <p className="mt-4 max-w-lg leading-relaxed text-ink-soft">

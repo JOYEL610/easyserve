@@ -68,8 +68,10 @@ again.
 | Phone number, WhatsApp number, Instagram link | `src/lib/site.ts` |
 | Any words on the site, English or Malayalam. The address too. | `src/i18n/dict.ts` |
 | The home page layout | `src/views/HomeView.tsx` |
+| The service boxes and tables | `src/components/ServiceBoxes.tsx` |
 | The terms page | `src/app/(en)/terms/page.tsx` |
 | The privacy page | `src/app/(en)/privacy/page.tsx` |
+| The photos on the home and services pages | `public/images/` |
 | The logo | `public/brand/easyserve-logo.png` (full logo) and `easyserve-mark.png` (just the ES sign) |
 
 ### How to add a new service
@@ -220,6 +222,14 @@ This matters. Google uses this address to know which website is yours.
 - [ ] Ask a lawyer to read the terms and privacy pages. The refund rules and the "we keep your
       papers for 90 days" rule are first drafts. The owner must say if they are right.
 
+## Photos
+
+The photos are free stock photos from Unsplash (https://unsplash.com). The Unsplash licence lets
+you use them on a business site for free. No credit is needed.
+
+To swap one, put your own photo in `public/images/` with the same file name. Best size is 1200
+wide and 800 tall. Real photos of the EasyServe centre would be better than stock photos.
+
 ## Good to know about safety
 
 - Passwords are scrambled before they are saved. Nobody can read them, not even staff.
@@ -228,4 +238,5 @@ This matters. Google uses this address to know which website is yours.
 
 ## What it is built with
 
-Next.js 16, TypeScript and Tailwind CSS.
+Next.js 16, TypeScript and Tailwind CSS. Fonts: Plus Jakarta Sans for headings, Inter for text,
+Anek Malayalam for Malayalam.

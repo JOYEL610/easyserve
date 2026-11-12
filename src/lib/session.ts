@@ -5,6 +5,8 @@ import { cookies } from "next/headers";
 export type Role = "customer" | "admin";
 
 const COOKIE = "es_session";
+/** Readable hint so the header can show the right menu. Grants nothing by itself. */
+const ROLE_HINT = "es_role";
 const ONE_WEEK = 60 * 60 * 24 * 7;
 
 function key(): Uint8Array {
@@ -23,13 +25,15 @@ export async function createSession(userId: string, role: Role): Promise<void> {
     .setExpirationTime(`${ONE_WEEK}s`)
     .sign(key());
 
-  (await cookies()).set(COOKIE, token, {
-    httpOnly: true,
+  const store = await cookies();
+  const base = {
     secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
+    sameSite: "lax" as const,
     path: "/",
     maxAge: ONE_WEEK,
-  });
+  };
+  store.set(COOKIE, token, { ...base, httpOnly: true });
+  store.set(ROLE_HINT, role, { ...base, httpOnly: false });
 }
 
 /** Returns the signed-in user's id, or null. The role is always re-read from the database. */
@@ -45,5 +49,7 @@ export async function readSession(): Promise<{ userId: string } | null> {
 }
 
 export async function destroySession(): Promise<void> {
-  (await cookies()).delete(COOKIE);
+  const store = await cookies();
+  store.delete(COOKIE);
+  store.delete(ROLE_HINT);
 }

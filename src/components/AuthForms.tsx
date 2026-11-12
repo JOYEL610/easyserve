@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useActionState } from "react";
+import { useActionState, useState, type InputHTMLAttributes } from "react";
 import { loginAdmin, loginCustomer, registerCustomer, type FormState } from "@/app/actions/auth";
 
 const initial: FormState = {};
@@ -20,6 +20,25 @@ function FormMessage({ message }: { message?: string }) {
     <p aria-live="polite" className={message ? "rounded-lg bg-red-50 px-3.5 py-3 text-sm font-bold text-red-800" : "sr-only"}>
       {message}
     </p>
+  );
+}
+
+/** Password box with a Show / Hide button, so people can check what they typed. */
+function PasswordField(props: InputHTMLAttributes<HTMLInputElement>) {
+  const [shown, setShown] = useState(false);
+  return (
+    <div className="relative">
+      <input {...props} type={shown ? "text" : "password"} className="field pr-20" />
+      <button
+        type="button"
+        onClick={() => setShown((value) => !value)}
+        aria-pressed={shown}
+        className="absolute right-1.5 top-1/2 min-h-[2.25rem] -translate-y-1/2 rounded-md px-3 text-sm font-bold text-leaf-700 hover:bg-mint-100"
+      >
+        {shown ? "Hide" : "Show"}
+        <span className="sr-only"> password</span>
+      </button>
+    </div>
   );
 }
 
@@ -49,14 +68,7 @@ export function LoginForm({ role }: { role: "customer" | "admin" }) {
         <label htmlFor="password" className="label">
           Password
         </label>
-        <input
-          id="password"
-          name="password"
-          type="password"
-          autoComplete="current-password"
-          required
-          className="field"
-        />
+        <PasswordField id="password" name="password" autoComplete="current-password" required />
       </div>
       <button type="submit" disabled={pending} className="btn btn-primary w-full">
         {pending ? "Logging in…" : "Log in"}
@@ -114,16 +126,14 @@ export function RegisterForm() {
         <label htmlFor="password" className="label">
           Password
         </label>
-        <input
+        <PasswordField
           id="password"
           name="password"
-          type="password"
           autoComplete="new-password"
           required
           minLength={8}
           aria-invalid={Boolean(errors.password)}
           aria-describedby={errors.password ? "password-error" : "password-hint"}
-          className="field"
         />
         <p id="password-hint" className="mt-1.5 text-sm text-ink-soft">
           At least 8 characters.

@@ -15,7 +15,7 @@ export function serviceMetadata(lang: Lang, slug: string): Metadata {
   const t = getDict(lang).servicePage;
   const local = localize(service, lang);
 
-  const docs = [...new Set(local.variants.flatMap((v) => v.documents.map((doc) => doc.text)))].slice(0, 6);
+  const docs = [...new Set(local.variants.flatMap((v) => v.documents.map((doc) => doc.text)))].slice(0, 4);
   const description = docs.length
     ? t.metaWithDocs(local.summary, docs.join(", "))
     : t.metaNoDocs(local.summary);
@@ -101,7 +101,7 @@ export function ServiceView({ lang, slug }: { lang: Lang; slug: string }) {
               </li>
             </ol>
           </nav>
-          <h1 className="mt-4 max-w-3xl text-4xl font-extrabold leading-[1.1] tracking-[-0.03em] sm:text-5xl">
+          <h1 className="mt-4 max-w-3xl text-4xl font-extrabold leading-[1.15] sm:text-5xl">
             {local.name}
           </h1>
           <p className="mt-5 max-w-2xl text-lg leading-relaxed text-mint-100">{local.summary}</p>
@@ -124,7 +124,7 @@ export function ServiceView({ lang, slug }: { lang: Lang; slug: string }) {
 
         <aside className="space-y-8 lg:sticky lg:top-24 lg:self-start">
           <div className="rounded-2xl border border-rule bg-white p-6">
-            <h2 className="text-lg font-extrabold tracking-tight text-forest-900">{page.startTitle}</h2>
+            <h2 className="text-lg font-extrabold text-forest-900">{page.startTitle}</h2>
             <p className="mt-2 leading-relaxed text-ink-soft">{page.start}</p>
             <div className="mt-5 flex flex-col gap-2.5">
               <a

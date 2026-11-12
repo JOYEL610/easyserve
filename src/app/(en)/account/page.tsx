@@ -31,8 +31,7 @@ async function Account() {
     <>
       <div className="flex flex-wrap items-end justify-between gap-4 border-b border-rule pb-6">
         <div>
-          <p className="text-xs font-extrabold uppercase tracking-[0.16em] text-leaf-700">Your account</p>
-          <h1 className="mt-2 text-3xl font-extrabold tracking-[-0.02em] text-forest-900 sm:text-4xl">
+          <h1 className="text-3xl font-extrabold text-forest-900 sm:text-4xl">
             {user.name}
           </h1>
           <p className="mt-1 text-ink-soft">{formatPhone(user.phone)}</p>
@@ -46,7 +45,7 @@ async function Account() {
 
       <div className="mt-10 grid gap-12 lg:grid-cols-[1fr_1.25fr]">
         <section aria-labelledby="new-request">
-          <h2 id="new-request" className="text-xl font-extrabold tracking-tight text-forest-900">
+          <h2 id="new-request" className="text-xl font-extrabold text-forest-900">
             Raise a request
           </h2>
           <p className="mb-6 mt-2 leading-relaxed text-ink-soft">
@@ -57,7 +56,7 @@ async function Account() {
         </section>
 
         <section aria-labelledby="your-requests">
-          <h2 id="your-requests" className="text-xl font-extrabold tracking-tight text-forest-900">
+          <h2 id="your-requests" className="text-xl font-extrabold text-forest-900">
             Your requests
           </h2>
           {result.rows.length === 0 ? (

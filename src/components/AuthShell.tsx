@@ -10,13 +10,11 @@ async function RedirectIfSignedIn() {
 }
 
 export function AuthShell({
-  eyebrow,
   title,
   intro,
   children,
   footer,
 }: {
-  eyebrow: string;
   title: string;
   intro: string;
   children: ReactNode;
@@ -28,8 +26,7 @@ export function AuthShell({
         <RedirectIfSignedIn />
       </Suspense>
       <div className="mx-auto max-w-md">
-        <p className="text-xs font-extrabold uppercase tracking-[0.16em] text-leaf-700">{eyebrow}</p>
-        <h1 className="mt-2 text-3xl font-extrabold tracking-[-0.02em] text-forest-900 sm:text-4xl">{title}</h1>
+        <h1 className="text-3xl font-extrabold text-forest-900 sm:text-4xl">{title}</h1>
         <p className="mt-3 leading-relaxed text-ink-soft">{intro}</p>
         <div className="mt-8 rounded-2xl border border-rule bg-white p-6 sm:p-8">{children}</div>
         {footer ? <div className="mt-6 text-sm leading-relaxed text-ink-soft">{footer}</div> : null}
