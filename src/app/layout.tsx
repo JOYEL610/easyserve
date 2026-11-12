@@ -51,8 +51,8 @@ const business = {
   alternateName: [site.name, "EasyServe ജനസേവന കേന്ദ്രം"],
   description: home.metaDescription,
   url: site.url,
-  image: `${site.url}/brand/easyserve-logo.jpg`,
-  logo: `${site.url}/brand/easyserve-logo.jpg`,
+  image: `${site.url}/brand/easyserve-logo.png`,
+  logo: `${site.url}/brand/easyserve-logo.png`,
   telephone: site.phoneE164,
   address: {
     "@type": "PostalAddress",

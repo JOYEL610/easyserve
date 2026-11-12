@@ -70,7 +70,7 @@ again.
 | The home page layout | `src/views/HomeView.tsx` |
 | The terms page | `src/app/(en)/terms/page.tsx` |
 | The privacy page | `src/app/(en)/privacy/page.tsx` |
-| The logo | `public/brand/easyserve-logo.jpg` |
+| The logo | `public/brand/easyserve-logo.png` (full logo) and `easyserve-mark.png` (just the ES sign) |
 
 ### How to add a new service
 
@@ -215,7 +215,6 @@ This matters. Google uses this address to know which website is yours.
 - [ ] Make the staff account on the live site
 - [ ] Add Google Analytics, if you want it
 - [ ] Ask a Malayalam reader to check the Malayalam words. Check the place name നാലാംകല്ല് too.
-- [ ] Swap the logo for the real logo file. The one here is small. It came from Instagram.
 - [ ] Get the list of papers for these services: passport, police clearance certificate,
       employment registration, Sabarimala virtual queue, scholarships, CV and print and scan.
 - [ ] Ask a lawyer to read the terms and privacy pages. The refund rules and the "we keep your

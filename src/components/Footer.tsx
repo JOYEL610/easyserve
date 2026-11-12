@@ -3,7 +3,7 @@ import { categories, localCategory, localize, servicesIn, type Lang } from "@/co
 import { getDict, localePath } from "@/i18n/dict";
 import { site, whatsappLink } from "@/lib/site";
 import { CookieSettingsButton } from "./CookieConsent";
-import { Logo, Wordmark } from "./Logo";
+import { FullLogo } from "./Logo";
 import { InstagramIcon, PhoneIcon, PinIcon, WhatsAppIcon } from "./icons";
 
 function IconLink({ href, label, children }: { href: string; label: string; children: React.ReactNode }) {
@@ -28,10 +28,7 @@ export function Footer({ lang }: { lang: Lang }) {
     <footer id="contact" className="scroll-mt-20 bg-forest-950 text-mint-100">
       <div className="shell grid gap-12 py-14 lg:grid-cols-[1.15fr_2fr]">
         <div>
-          <div className="flex items-center gap-3">
-            <Logo className="size-14" />
-            <Wordmark tone="light" tagline={t.tagline} />
-          </div>
+          <FullLogo className="size-32" />
 
           <h2 className="mt-8 text-xs font-extrabold uppercase tracking-[0.16em] text-leaf-300">
             {t.footer.contact}
