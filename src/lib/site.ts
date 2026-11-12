@@ -19,9 +19,9 @@ export const site = {
   description:
     "EasyServe Online Centre in Nallamkallu, Edakkazhiyur handles government certificates and online applications for you: ration card, income certificate, PAN, voter ID, marriage and birth certificates, Udyam, FSSAI and more. Send your documents on WhatsApp from anywhere.",
   url: siteUrl(),
-  phoneDisplay: "95266 10610",
-  phoneE164: "+919526610610",
-  whatsappNumber: "919526610610",
+  phoneDisplay: "88486 07268",
+  phoneE164: "+918848607268",
+  whatsappNumber: "918848607268",
   instagram: "https://www.instagram.com/easyserve610/",
   address: {
     line1: "EasyServe Online Centre",
