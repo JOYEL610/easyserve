@@ -31,36 +31,41 @@ export type Service = {
   category: CategoryId;
   /** One plain sentence: what this is and who issues it. */
   summary: string;
+  summaryMl?: string;
   /** Search aliases, including common misspellings and Malayalam terms. */
   keywords: string[];
   variants: Variant[];
   listPending?: boolean;
 };
 
-export const categories: { id: CategoryId; name: string; nameMl: string; blurb: string }[] = [
+export const categories: { id: CategoryId; name: string; nameMl: string; blurb: string; blurbMl: string }[] = [
   {
     id: "ids",
     name: "IDs and cards",
     nameMl: "തിരിച്ചറിയൽ രേഖകൾ",
     blurb: "Aadhaar, ration card, PAN, voter ID and passport work.",
+    blurbMl: "ആധാർ, റേഷൻ കാർഡ്, പാൻ, വോട്ടർ ഐഡി, പാസ്‌പോർട്ട്.",
   },
   {
     id: "certificates",
     name: "Certificates",
     nameMl: "സർട്ടിഫിക്കറ്റുകൾ",
     blurb: "Revenue certificates and birth, death and marriage registration.",
+    blurbMl: "റവന്യൂ സർട്ടിഫിക്കറ്റുകളും ജനന, മരണ, വിവാഹ രജിസ്ട്രേഷനും.",
   },
   {
     id: "applications",
     name: "Online applications",
     nameMl: "ഓൺലൈൻ അപേക്ഷകൾ",
     blurb: "Business registrations, scholarships and bookings.",
+    blurbMl: "ബിസിനസ് രജിസ്ട്രേഷൻ, സ്കോളർഷിപ്പ്, ബുക്കിംഗ്.",
   },
   {
     id: "desk",
     name: "Print, scan and more",
     nameMl: "പ്രിന്റ്, സ്കാൻ",
     blurb: "CVs, printing and scanning.",
+    blurbMl: "സി.വി, പ്രിന്റ്, സ്കാൻ.",
   },
 ];
 
@@ -71,7 +76,7 @@ const d = {
   aadhaarOtp: {
     en: "Aadhaar OTP",
     ml: "ആധാർ OTP",
-    note: "Sent to the mobile number linked to your Aadhaar. We ask for it only while the application is being filed.",
+    note: "Sent to the mobile number linked to your Aadhaar. We ask for it only while the application is being filed.", noteMl: "ആധാറുമായി ലിങ്ക് ചെയ്ത മൊബൈലിലേക്ക് വരും. അപേക്ഷ സമർപ്പിക്കുന്ന സമയത്ത് മാത്രമേ ഞങ്ങൾ ചോദിക്കൂ.",
   },
   ration: { en: "Ration card", ml: "റേഷൻ കാർഡ്" },
   pan: { en: "PAN card", ml: "പാൻ കാർഡ്" },
@@ -97,6 +102,7 @@ export const services: Service[] = [
     nameMl: "ആധാർ കാർഡ്",
     category: "ids",
     summary: "Download your e-Aadhaar or update the address printed on it.",
+    summaryMl: "ഇ-ആധാർ ഡൗൺലോഡ് ചെയ്യാനും ആധാറിലെ വിലാസം മാറ്റാനും.",
     keywords: ["aadhar", "adhar", "uidai", "e-aadhaar", "aadhaar download", "address change", "ആധാർ"],
     variants: [
       {
@@ -116,7 +122,7 @@ export const services: Service[] = [
           {
             en: "Address proof: ration card, voter ID or marriage certificate",
             ml: "വിലാസ രേഖ: റേഷൻ കാർഡ്, വോട്ടർ ഐഡി അല്ലെങ്കിൽ വിവാഹ സർട്ടിഫിക്കറ്റ്",
-            note: "Any one of the three.",
+            note: "Any one of the three.", noteMl: "മൂന്നിൽ ഏതെങ്കിലും ഒന്ന് മതി.",
           },
         ],
       },
@@ -129,6 +135,7 @@ export const services: Service[] = [
     category: "ids",
     summary:
       "New ration card, adding a member or removing a member, filed with the Kerala Civil Supplies Department.",
+    summaryMl: "പുതിയ റേഷൻ കാർഡ്, അംഗത്തെ ചേർക്കൽ, അംഗത്തെ ഒഴിവാക്കൽ എന്നിവയ്ക്കുള്ള അപേക്ഷ.",
     keywords: ["ration", "civil supplies", "new ration card", "member addition", "member reduction", "റേഷൻ"],
     variants: [
       {
@@ -215,7 +222,7 @@ export const services: Service[] = [
           {
             en: "Application form for removing a member",
             ml: "റേഷൻ കാർഡ് അംഗത്തെ ഒഴിവാക്കുന്നതിനുള്ള അപേക്ഷ",
-            note: "We prepare this with you.",
+            note: "We prepare this with you.", noteMl: "ഇത് ഞങ്ങൾ തയ്യാറാക്കിത്തരും.",
           },
         ],
       },
@@ -227,6 +234,7 @@ export const services: Service[] = [
     nameMl: "പാൻ കാർഡ്",
     category: "ids",
     summary: "Application for a Permanent Account Number from the Income Tax Department.",
+    summaryMl: "ആദായനികുതി വകുപ്പിന്റെ പാൻ കാർഡിനുള്ള അപേക്ഷ.",
     keywords: ["pan", "pancard", "income tax", "പാൻ"],
     variants: [
       {
@@ -237,7 +245,7 @@ export const services: Service[] = [
           {
             en: "Driving licence, birth certificate or passport",
             ml: "ഡ്രൈവിംഗ് ലൈസൻസ്, ജനന സർട്ടിഫിക്കറ്റ് അല്ലെങ്കിൽ പാസ്‌പോർട്ട്",
-            note: "Any one of the three.",
+            note: "Any one of the three.", noteMl: "മൂന്നിൽ ഏതെങ്കിലും ഒന്ന് മതി.",
           },
           { en: "2 passport size photos", ml: "2 പാസ്‌പോർട്ട് സൈസ് ഫോട്ടോ" },
         ],
@@ -250,6 +258,7 @@ export const services: Service[] = [
     nameMl: "വോട്ടർ ഐഡി കാർഡ്",
     category: "ids",
     summary: "New voter registration or correcting the details on your existing voter ID.",
+    summaryMl: "പുതിയ വോട്ടർ ഐഡിക്കുള്ള അപേക്ഷയും നിലവിലുള്ള വോട്ടർ ഐഡിയിലെ തിരുത്തലും.",
     keywords: ["voter", "election id", "epic", "voters id", "sir form", "വോട്ടർ"],
     variants: [
       {
@@ -272,6 +281,7 @@ export const services: Service[] = [
     nameMl: "ആധാർ–പാൻ ലിങ്കിംഗ്",
     category: "ids",
     summary: "Linking your PAN with your Aadhaar on the Income Tax portal.",
+    summaryMl: "ആദായനികുതി പോർട്ടലിൽ പാൻ കാർഡ് ആധാറുമായി ലിങ്ക് ചെയ്യൽ.",
     keywords: ["aadhar pan link", "pan aadhaar linking", "link pan", "ലിങ്ക്"],
     variants: [
       {
@@ -287,6 +297,7 @@ export const services: Service[] = [
     nameMl: "ഇ-ശ്രം കാർഡ്",
     category: "ids",
     summary: "Registration on the national e-Shram database for unorganised workers.",
+    summaryMl: "അസംഘടിത മേഖലയിലെ തൊഴിലാളികൾക്കുള്ള ഇ-ശ്രം രജിസ്ട്രേഷൻ.",
     keywords: ["eshram", "e shram", "shram card", "labour card", "ഇ-ശ്രം"],
     variants: [
       {
@@ -306,6 +317,7 @@ export const services: Service[] = [
     nameMl: "പാസ്‌പോർട്ട് അപേക്ഷ",
     category: "ids",
     summary: "Online passport application and appointment booking on Passport Seva.",
+    summaryMl: "പാസ്‌പോർട്ട് സേവ വഴി ഓൺലൈൻ പാസ്‌പോർട്ട് അപേക്ഷയും അപ്പോയിന്റ്മെന്റ് ബുക്കിംഗും.",
     keywords: ["passport", "passport seva", "renewal", "പാസ്‌പോർട്ട്"],
     variants: [{ id: "apply", name: "Passport application", documents: [] }],
     listPending: true,
@@ -318,6 +330,7 @@ export const services: Service[] = [
     nameMl: "വരുമാന സർട്ടിഫിക്കറ്റ്",
     category: "certificates",
     summary: "Revenue Department certificate of annual family income, applied for through e-District Kerala.",
+    summaryMl: "കുടുംബത്തിന്റെ വാർഷിക വരുമാനം കാണിക്കുന്ന റവന്യൂ വകുപ്പിന്റെ സർട്ടിഫിക്കറ്റ്. ഇ-ഡിസ്ട്രിക്റ്റ് വഴി അപേക്ഷിക്കാം.",
     keywords: ["income", "varumanam", "e-district", "village office", "വരുമാന"],
     variants: [
       {
@@ -333,6 +346,7 @@ export const services: Service[] = [
     nameMl: "കൈവശാവകാശ സർട്ടിഫിക്കറ്റ്",
     category: "certificates",
     summary: "Revenue Department certificate confirming who holds a piece of land.",
+    summaryMl: "ഭൂമി ആരുടെ കൈവശമാണെന്ന് കാണിക്കുന്ന റവന്യൂ വകുപ്പിന്റെ സർട്ടിഫിക്കറ്റ്.",
     keywords: ["possession", "kaivasam", "land", "കൈവശ"],
     variants: [
       {
@@ -348,6 +362,7 @@ export const services: Service[] = [
     nameMl: "ജാതി സർട്ടിഫിക്കറ്റ്",
     category: "certificates",
     summary: "Revenue Department certificate of caste, used for education, jobs and reservations.",
+    summaryMl: "വിദ്യാഭ്യാസം, ജോലി, സംവരണം എന്നിവയ്ക്ക് ആവശ്യമായ ജാതി സർട്ടിഫിക്കറ്റ്.",
     keywords: ["caste", "jathi", "ജാതി"],
     variants: [
       {
@@ -363,6 +378,7 @@ export const services: Service[] = [
     nameMl: "നേറ്റിവിറ്റി സർട്ടിഫിക്കറ്റ്",
     category: "certificates",
     summary: "Revenue Department certificate confirming you are a native of Kerala.",
+    summaryMl: "നിങ്ങൾ കേരളീയനാണെന്ന് കാണിക്കുന്ന റവന്യൂ വകുപ്പിന്റെ സർട്ടിഫിക്കറ്റ്.",
     keywords: ["nativity", "native", "നേറ്റിവിറ്റി"],
     variants: [
       {
@@ -378,6 +394,7 @@ export const services: Service[] = [
     nameMl: "കമ്മ്യൂണിറ്റി സർട്ടിഫിക്കറ്റ്",
     category: "certificates",
     summary: "Revenue Department certificate of the community you belong to.",
+    summaryMl: "നിങ്ങളുടെ സമുദായം കാണിക്കുന്ന റവന്യൂ വകുപ്പിന്റെ സർട്ടിഫിക്കറ്റ്.",
     keywords: ["community", "samudayam", "കമ്മ്യൂണിറ്റി"],
     variants: [
       {
@@ -393,6 +410,7 @@ export const services: Service[] = [
     nameMl: "റെസിഡൻസ് സർട്ടിഫിക്കറ്റ്",
     category: "certificates",
     summary: "Revenue Department certificate confirming where you live.",
+    summaryMl: "നിങ്ങൾ താമസിക്കുന്ന സ്ഥലം കാണിക്കുന്ന റവന്യൂ വകുപ്പിന്റെ സർട്ടിഫിക്കറ്റ്.",
     keywords: ["residence", "residential", "address proof", "റെസിഡൻസ്"],
     variants: [
       {
@@ -416,6 +434,7 @@ export const services: Service[] = [
     nameMl: "നോൺ ക്രീമി ലെയർ സർട്ടിഫിക്കറ്റ്",
     category: "certificates",
     summary: "Revenue Department certificate for OBC reservation in education and jobs.",
+    summaryMl: "വിദ്യാഭ്യാസത്തിലും ജോലിയിലും ഒ.ബി.സി സംവരണത്തിന് ആവശ്യമായ സർട്ടിഫിക്കറ്റ്.",
     keywords: ["ncl", "non creamy layer", "obc", "creamy", "നോൺ ക്രീമി"],
     variants: [
       {
@@ -431,6 +450,7 @@ export const services: Service[] = [
     nameMl: "ജനന സർട്ടിഫിക്കറ്റ്",
     category: "certificates",
     summary: "Birth certificate from your panchayat or municipality records.",
+    summaryMl: "പഞ്ചായത്തിൽ നിന്നോ മുനിസിപ്പാലിറ്റിയിൽ നിന്നോ ഉള്ള ജനന സർട്ടിഫിക്കറ്റ്.",
     keywords: ["birth", "janana", "ജനന"],
     variants: [
       {
@@ -446,6 +466,7 @@ export const services: Service[] = [
     nameMl: "മരണ സർട്ടിഫിക്കറ്റ്",
     category: "certificates",
     summary: "Death certificate from your panchayat or municipality records.",
+    summaryMl: "പഞ്ചായത്തിൽ നിന്നോ മുനിസിപ്പാലിറ്റിയിൽ നിന്നോ ഉള്ള മരണ സർട്ടിഫിക്കറ്റ്.",
     keywords: ["death", "marana", "മരണ"],
     variants: [
       {
@@ -484,6 +505,7 @@ export const services: Service[] = [
     nameMl: "വിവാഹ സർട്ടിഫിക്കറ്റ്",
     category: "certificates",
     summary: "Marriage registration and certificate from your panchayat or municipality.",
+    summaryMl: "പഞ്ചായത്തിലോ മുനിസിപ്പാലിറ്റിയിലോ വിവാഹ രജിസ്ട്രേഷനും സർട്ടിഫിക്കറ്റും.",
     keywords: ["marriage", "wedding", "vivaha", "registration", "വിവാഹ", "മാര്യേജ്"],
     variants: [
       {
@@ -512,6 +534,7 @@ export const services: Service[] = [
     nameMl: "പോലീസ് ക്ലിയറൻസ് സർട്ടിഫിക്കറ്റ്",
     category: "certificates",
     summary: "Police clearance certificate (PCC) for a visa, a job abroad or an employer.",
+    summaryMl: "വിസയ്ക്കോ വിദേശ ജോലിക്കോ ആവശ്യമായ പോലീസ് ക്ലിയറൻസ് സർട്ടിഫിക്കറ്റ് (PCC).",
     keywords: ["pcc", "police clearance", "police certificate", "visa", "പോലീസ്"],
     variants: [{ id: "apply", name: "Police clearance certificate", documents: [] }],
     listPending: true,
@@ -525,16 +548,17 @@ export const services: Service[] = [
     category: "applications",
     summary:
       "Government registration for a small shop, business or service centre (MSME). It gives the business official status.",
+    summaryMl: "ചെറുകിട കട, ബിസിനസ്, സേവന കേന്ദ്രം എന്നിവയ്ക്കുള്ള സർക്കാർ രജിസ്ട്രേഷൻ (MSME).",
     keywords: ["udyam", "udhyam", "msme", "udyog aadhaar", "business registration", "ഉദ്യം"],
     variants: [
       {
         id: "register",
         name: "Udyam registration",
         documents: [
-          { ...d.aadhaar, note: "Linked to your mobile number." },
+          { ...d.aadhaar, note: "Linked to your mobile number.", noteMl: "മൊബൈൽ നമ്പറുമായി ലിങ്ക് ചെയ്തത്." },
           d.pan,
           d.otp,
-          { ...d.passbook, note: "For the business bank details." },
+          { ...d.passbook, note: "For the business bank details.", noteMl: "ബിസിനസിന്റെ ബാങ്ക് വിവരങ്ങൾക്ക്." },
         ],
       },
     ],
@@ -545,6 +569,7 @@ export const services: Service[] = [
     nameMl: "ഫുഡ് ലൈസൻസ് (FSSAI)",
     category: "applications",
     summary: "FSSAI registration or licence for a food business.",
+    summaryMl: "ഭക്ഷണ ബിസിനസിനുള്ള FSSAI രജിസ്ട്രേഷൻ അല്ലെങ്കിൽ ലൈസൻസ്.",
     keywords: ["fssai", "food license", "food licence", "food safety", "ഫുഡ് ലൈസൻസ്"],
     variants: [
       {
@@ -560,10 +585,11 @@ export const services: Service[] = [
     nameMl: "സ്കോളർഷിപ്പ് അപേക്ഷകൾ",
     category: "applications",
     summary: "Online applications for NMMS and e-Grantz scholarships.",
+    summaryMl: "NMMS, ഇ-ഗ്രാന്റ്സ് സ്കോളർഷിപ്പുകൾക്കുള്ള ഓൺലൈൻ അപേക്ഷ.",
     keywords: ["scholarship", "nmms", "egrantz", "e-grantz", "egrants", "സ്കോളർഷിപ്പ്"],
     variants: [
       { id: "nmms", name: "NMMS", documents: [] },
-      { id: "e-grantz", name: "e-Grantz", documents: [] },
+      { id: "e-grantz", name: "e-Grantz", nameMl: "ഇ-ഗ്രാന്റ്സ്", documents: [] },
     ],
     listPending: true,
   },
@@ -573,6 +599,7 @@ export const services: Service[] = [
     nameMl: "എംപ്ലോയ്മെന്റ് രജിസ്ട്രേഷൻ",
     category: "applications",
     summary: "Registration and renewal with the Kerala Employment Exchange.",
+    summaryMl: "കേരള എംപ്ലോയ്മെന്റ് എക്സ്ചേഞ്ചിൽ രജിസ്ട്രേഷനും പുതുക്കലും.",
     keywords: ["employment", "employment exchange", "registration", "എംപ്ലോയ്മെന്റ്"],
     variants: [{ id: "register", name: "Employment registration", documents: [] }],
     listPending: true,
@@ -583,6 +610,7 @@ export const services: Service[] = [
     nameMl: "ശബരിമല വെർച്വൽ ക്യൂ ബുക്കിംഗ്",
     category: "applications",
     summary: "Virtual queue slot booking for Sabarimala darshan.",
+    summaryMl: "ശബരിമല ദർശനത്തിനുള്ള വെർച്വൽ ക്യൂ ബുക്കിംഗ്.",
     keywords: ["sabarimala", "virtual q", "virtual queue", "darshan", "ശബരിമല", "വെർച്വൽ ക്യൂ"],
     variants: [{ id: "book", name: "Sabarimala virtual queue booking", documents: [] }],
     listPending: true,
@@ -595,10 +623,11 @@ export const services: Service[] = [
     nameMl: "സി.വി / റെസ്യൂമെ",
     category: "desk",
     summary: "A CV written and formatted for you, in ATS-friendly or Europass format.",
+    summaryMl: "ATS ഫ്രണ്ട്‌ലി അല്ലെങ്കിൽ യൂറോപാസ് രൂപത്തിൽ സി.വി തയ്യാറാക്കി നൽകുന്നു.",
     keywords: ["cv", "resume", "biodata", "ats", "europass", "സി.വി"],
     variants: [
-      { id: "ats", name: "ATS-friendly CV", documents: [] },
-      { id: "europass", name: "Europass CV", documents: [] },
+      { id: "ats", name: "ATS-friendly CV", nameMl: "ATS ഫ്രണ്ട്‌ലി സി.വി", documents: [] },
+      { id: "europass", name: "Europass CV", nameMl: "യൂറോപാസ് സി.വി", documents: [] },
     ],
     listPending: true,
   },
@@ -608,6 +637,7 @@ export const services: Service[] = [
     nameMl: "പ്രിന്റ്, സ്കാൻ",
     category: "desk",
     summary: "Printing, scanning and other document work at the centre.",
+    summaryMl: "സെന്ററിൽ പ്രിന്റ്, സ്കാൻ, മറ്റ് ഡോക്യുമെന്റ് ജോലികൾ.",
     keywords: ["print", "printout", "scan", "photocopy", "പ്രിന്റ്", "സ്കാൻ"],
     variants: [{ id: "desk", name: "Print and scan", documents: [] }],
     listPending: true,
@@ -624,4 +654,50 @@ export function servicesIn(category: CategoryId): Service[] {
 
 export function documentCount(service: Service): number {
   return service.variants.reduce((n, v) => n + v.documents.length, 0);
+}
+
+/* ---------- One-language views ---------- */
+
+export type Lang = "en" | "ml";
+
+export type LocalDoc = { text: string; note?: string };
+export type LocalVariant = { id: string; name: string; documents: LocalDoc[] };
+export type LocalService = {
+  slug: string;
+  name: string;
+  summary: string;
+  category: CategoryId;
+  keywords: string[];
+  variants: LocalVariant[];
+  listPending?: boolean;
+};
+
+/** A service with every string resolved to one language. Malayalam falls back to English. */
+export function localize(service: Service, lang: Lang): LocalService {
+  const ml = lang === "ml";
+  return {
+    slug: service.slug,
+    name: ml ? service.nameMl : service.name,
+    summary: ml ? (service.summaryMl ?? service.summary) : service.summary,
+    category: service.category,
+    keywords: [service.name, service.nameMl, ...service.keywords],
+    listPending: service.listPending,
+    variants: service.variants.map((variant) => ({
+      id: variant.id,
+      name: ml
+        ? (variant.nameMl ?? (variant.name === service.name ? service.nameMl : variant.name))
+        : variant.name,
+      documents: variant.documents.map((doc: Doc) => ({
+        text: ml ? (doc.ml ?? doc.en) : doc.en,
+        note: ml ? (doc.noteMl ?? doc.note) : doc.note,
+      })),
+    })),
+  };
+}
+
+export function localCategory(id: CategoryId, lang: Lang): { id: CategoryId; name: string; blurb: string } {
+  const category = categories.find((c) => c.id === id)!;
+  return lang === "ml"
+    ? { id, name: category.nameMl, blurb: category.blurbMl }
+    : { id, name: category.name, blurb: category.blurb };
 }

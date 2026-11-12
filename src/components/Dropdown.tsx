@@ -10,11 +10,13 @@ export function Dropdown({
   children,
   align = "right",
   buttonClassName = "",
+  chevronClassName = "",
 }: {
   label: ReactNode;
   children: ReactNode;
   align?: "left" | "right";
   buttonClassName?: string;
+  chevronClassName?: string;
 }) {
   const [openOn, setOpenOn] = useState<string | null>(null);
   const pathname = usePathname();
@@ -48,7 +50,7 @@ export function Dropdown({
         className={buttonClassName}
       >
         {label}
-        <ChevronIcon className={`size-4 transition-transform ${open ? "rotate-180" : ""}`} />
+        <ChevronIcon className={`size-4 transition-transform ${open ? "rotate-180" : ""} ${chevronClassName}`} />
       </button>
       <div
         id={panelId}

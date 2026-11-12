@@ -39,10 +39,17 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-/* Malayalam needs a little more leading than Latin at the same size. */
+/* Malayalam pages: the script needs more leading than Latin, and letter
+   spacing breaks its joined letters. These rules sit outside the Tailwind
+   layers on purpose so they win over spacing utilities. */
 :lang(ml) {
-  font-family: var(--font-ml);
-  line-height: 1.75;
+  letter-spacing: 0;
+}
+:lang(ml) :is(h1, h2, h3) {
+  line-height: 1.4;
+}
+[lang="ml"] {
+  line-height: 1.8;
 }
 
 ::selection {

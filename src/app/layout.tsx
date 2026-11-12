@@ -1,10 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Anek_Malayalam, Manrope } from "next/font/google";
-import { Analytics, CookieBanner } from "@/components/CookieConsent";
-import { Footer } from "@/components/Footer";
-import { Header } from "@/components/Header";
 import { JsonLd } from "@/components/JsonLd";
 import { services } from "@/content/services";
+import { getDict } from "@/i18n/dict";
 import { site } from "@/lib/site";
 import "./globals.css";
 
@@ -20,22 +18,22 @@ const anekMalayalam = Anek_Malayalam({
   display: "swap",
 });
 
+const home = getDict("en").home;
+
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: `${site.legalName} | Government certificates and online applications, Edakkazhiyur`,
+    default: home.metaTitle,
     template: `%s | ${site.name}`,
   },
-  description: site.description,
+  description: home.metaDescription,
   applicationName: site.name,
-  alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     siteName: site.legalName,
     locale: "en_IN",
-    url: "/",
-    title: `${site.legalName} | Government certificates and online applications`,
-    description: site.description,
+    title: home.metaTitle,
+    description: home.metaDescription,
   },
   twitter: { card: "summary_large_image" },
   formatDetection: { telephone: true, address: true },
@@ -51,7 +49,7 @@ const business = {
   "@id": `${site.url}/#business`,
   name: site.legalName,
   alternateName: [site.name, "EasyServe ജനസേവന കേന്ദ്രം"],
-  description: site.description,
+  description: home.metaDescription,
   url: site.url,
   image: `${site.url}/brand/easyserve-logo.jpg`,
   logo: `${site.url}/brand/easyserve-logo.jpg`,
@@ -80,29 +78,22 @@ const business = {
       itemOffered: {
         "@type": "Service",
         name: service.name,
+        alternateName: service.nameMl,
         url: `${site.url}/services/${service.slug}`,
       },
     })),
   },
 };
 
+/**
+ * Shared shell. The header, footer and cookie banner live in the language
+ * layouts: app/(en)/layout.tsx for English and app/ml/layout.tsx for Malayalam.
+ */
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en-IN" className={`${manrope.variable} ${anekMalayalam.variable}`}>
-      <body className="flex min-h-dvh flex-col">
-        <a
-          href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-3 focus:top-3 focus:z-50 focus:rounded-lg focus:bg-white focus:px-4 focus:py-2 focus:font-bold"
-        >
-          Skip to content
-        </a>
-        <Header />
-        <main id="main" className="flex-1">
-          {children}
-        </main>
-        <Footer />
-        <CookieBanner />
-        <Analytics />
+      <body>
+        {children}
         <JsonLd data={business} />
       </body>
     </html>

@@ -1,20 +1,23 @@
 "use client";
 
 import { useMemo, useState, type ReactNode } from "react";
-import type { Service } from "@/content/services";
+import type { Lang, LocalService } from "@/content/services";
+import { getDict } from "@/i18n/dict";
 import { ChecklistSlip } from "./ChecklistSlip";
 import { SearchIcon } from "./icons";
 
+const SPLIT = /[^\p{L}\p{M}\p{N}]+/u;
+
 /** Every typed word must start a word in the service's name, options or aliases. */
-function matches(service: Service, query: string): boolean {
-  const words = [service.name, service.nameMl, ...service.keywords, ...service.variants.map((v) => v.name)]
+function matches(service: LocalService, query: string): boolean {
+  const words = [service.name, ...service.keywords, ...service.variants.map((v) => v.name)]
     .join(" ")
     .toLowerCase()
-    .split(/[^\p{L}\p{M}\p{N}]+/u)
+    .split(SPLIT)
     .filter(Boolean);
   return query
     .toLowerCase()
-    .split(/[^\p{L}\p{M}\p{N}]+/u)
+    .split(SPLIT)
     .filter(Boolean)
     .every((term) => words.some((word) => word.startsWith(term)));
 }
@@ -24,16 +27,19 @@ function matches(service: Service, query: string): boolean {
  * switches to that service.
  */
 export function HeroFinder({
+  lang,
   services,
   quickPicks,
   initialSlug,
   children,
 }: {
-  services: Service[];
+  lang: Lang;
+  services: LocalService[];
   quickPicks: string[];
   initialSlug: string;
   children: ReactNode;
 }) {
+  const t = getDict(lang).hero;
   const [query, setQuery] = useState("");
   const [slug, setSlug] = useState(initialSlug);
 
@@ -45,7 +51,7 @@ export function HeroFinder({
   );
   const picks = quickPicks
     .map((pick) => services.find((s) => s.slug === pick))
-    .filter((s): s is Service => Boolean(s));
+    .filter((s): s is LocalService => Boolean(s));
   const options = trimmed ? results : picks;
 
   return (
@@ -55,7 +61,7 @@ export function HeroFinder({
 
         <div className="mt-7 max-w-xl">
           <label htmlFor="service-search" className="block text-sm font-bold text-mint-100">
-            Which service do you need?
+            {t.searchLabel}
           </label>
           <div className="relative mt-2">
             <SearchIcon className="pointer-events-none absolute left-4 top-1/2 size-5 -translate-y-1/2 text-ink-soft" />
@@ -65,17 +71,13 @@ export function HeroFinder({
               autoComplete="off"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Try ration card, income, marriage…"
+              placeholder={t.placeholder}
               className="h-14 w-full rounded-xl border-2 border-transparent bg-white pl-12 pr-4 text-base font-semibold text-ink placeholder:font-medium placeholder:text-ink-soft/80 focus:border-turmeric focus:outline-none"
             />
           </div>
 
           <p className="mt-4 text-xs font-bold uppercase tracking-[0.16em] text-leaf-300" aria-live="polite">
-            {trimmed
-              ? results.length > 0
-                ? `${results.length} matching ${results.length === 1 ? "service" : "services"}`
-                : "No service by that name"
-              : "Often asked for"}
+            {trimmed ? (results.length > 0 ? t.matches(results.length) : t.none) : t.often}
           </p>
 
           {options.length > 0 ? (
@@ -101,16 +103,14 @@ export function HeroFinder({
               })}
             </ul>
           ) : (
-            <p className="mt-2.5 text-sm leading-relaxed text-mint-100">
-              We may still handle it. Use the Enquire now button and tell us what you need.
-            </p>
+            <p className="mt-2.5 text-sm leading-relaxed text-mint-100">{t.noneHelp}</p>
           )}
         </div>
       </div>
 
       <div className="lg:pt-3">
         <div className="mx-auto max-w-md lg:max-w-none lg:-rotate-[1.2deg]">
-          <ChecklistSlip key={selected.slug} service={selected} showPageLink />
+          <ChecklistSlip key={selected.slug} lang={lang} service={selected} showPageLink />
         </div>
       </div>
     </div>

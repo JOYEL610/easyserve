@@ -1,128 +1,232 @@
-# EasyServe Online Centre
+# EasyServe website
 
-Website for EasyServe, a service centre in Nallamkallu, Edakkazhiyur that prepares and files
-government certificates and online applications.
+This is the website for EasyServe Online Centre in Nallamkallu, Edakkazhiyur.
 
-- Public site: services, the documents each one needs (English and Malayalam), WhatsApp enquiry
-- Customer accounts: raise a request and follow its status
-- Admin dashboard: review requests, set status, leave a note for the customer
-- Terms, privacy policy, cookie consent
-- SEO: per-page metadata, sitemap, robots, structured data, Open Graph image
+EasyServe helps people get government papers done. Things like ration cards, income
+certificates and PAN cards.
 
-Built with Next.js 16 (App Router), TypeScript and Tailwind CSS 4.
+## What the website does
 
-## Run it locally
+- Shows every service EasyServe offers.
+- Shows which papers you need to bring for each service.
+- Is in English. One button at the top switches it to Malayalam.
+- Has an "Enquire now" button. It opens WhatsApp so people can message EasyServe.
+- Lets customers make an account and see how their work is going.
+- Lets EasyServe staff log in and update each customer's work.
+- Has a terms page, a privacy page and a cookie pop-up.
+- Is built so Google can find it easily.
 
-Needs Node.js 22.18 or newer.
+## How to run it on your computer
+
+You need Node.js version 22.18 or newer. Get it from https://nodejs.org.
+
+Type these in the terminal, one at a time:
 
 ```bash
 npm install
-cp .env.example .env.local   # then fill in SESSION_SECRET and the admin details
+```
+
+```bash
+cp .env.example .env.local
+```
+
+Now open the file `.env.local` and fill it in. The next part tells you how.
+
+```bash
 npm run create-admin
+```
+
+```bash
 npm run dev
 ```
 
-Open http://localhost:3000.
+Then open http://localhost:3000 in your browser.
 
-## Environment
+## The settings file
 
-| Variable | Purpose |
+The file `.env.local` holds your settings. It stays on your computer. It never goes to GitHub.
+
+| Setting | What it is for |
 | --- | --- |
-| `NEXT_PUBLIC_SITE_URL` | Public address of the site. Used for canonical URLs, the sitemap and structured data. |
-| `SESSION_SECRET` | Signs login sessions. At least 32 random characters (`openssl rand -base64 48`). |
-| `DATABASE_URL`, `DATABASE_AUTH_TOKEN` | Optional. Hosted libSQL / Turso database. Without them the app uses a local file, `data/easyserve.db`. |
-| `ADMIN_NAME`, `ADMIN_PHONE`, `ADMIN_PASSWORD` | Read by `npm run create-admin`. Run it again with a new password to reset it. |
-| `NEXT_PUBLIC_GA_ID` | Optional. Google Analytics 4 ID. Loads only after a visitor accepts all cookies. |
+| `NEXT_PUBLIC_SITE_URL` | Your website address. Like `https://yourdomain.com`. |
+| `SESSION_SECRET` | A long secret word that keeps logins safe. Make one with `openssl rand -base64 48`. |
+| `ADMIN_NAME` | The name of the staff account. |
+| `ADMIN_PHONE` | The phone number staff log in with. |
+| `ADMIN_PASSWORD` | The password staff log in with. Use 12 letters or more. |
+| `DATABASE_URL` | Where the database lives. Leave it empty for now. |
+| `DATABASE_AUTH_TOKEN` | The key to the database. Leave it empty for now. |
+| `NEXT_PUBLIC_GA_ID` | Your Google Analytics ID. Only if you want visitor counts. |
 
-## Where things live
+To change the staff password, put a new one in `ADMIN_PASSWORD` and run `npm run create-admin`
+again.
 
-| Path | What |
+## Where to change things
+
+| What you want to change | File to open |
 | --- | --- |
-| `src/content/services.ts` | Every service, its options and its document list. Edit this to add or change a service. |
-| `src/lib/site.ts` | Phone number, WhatsApp number, address, Instagram link. |
-| `src/app/page.tsx` | Home page. |
-| `src/app/services/` | Services index and the page for each service. |
-| `src/app/account/`, `src/app/admin/` | Customer and admin dashboards. |
-| `src/app/actions/` | Login, registration and request actions. |
-| `src/app/terms/`, `src/app/privacy/` | Legal pages. |
-| `src/components/CookieConsent.tsx` | Cookie banner and analytics loader. |
+| A service, or the papers it needs | `src/content/services.ts` |
+| Phone number, WhatsApp number, Instagram link | `src/lib/site.ts` |
+| Any words on the site, English or Malayalam. The address too. | `src/i18n/dict.ts` |
+| The home page layout | `src/views/HomeView.tsx` |
+| The terms page | `src/app/(en)/terms/page.tsx` |
+| The privacy page | `src/app/(en)/privacy/page.tsx` |
+| The logo | `public/brand/easyserve-logo.jpg` |
 
-### Adding a service
+### How to add a new service
 
-Add an entry to `services` in `src/content/services.ts`. It then appears on the home page, the
-services page, the footer, the sitemap and the customer request form, and gets its own page at
-`/services/<slug>`. Set `listPending: true` when the document list is not confirmed yet; the page
-then asks people to message for the list instead of showing one.
+1. Open `src/content/services.ts`.
+2. Copy one of the services already there.
+3. Change the name and the list of papers.
+4. Fill in the Malayalam too. These are the lines ending in `Ml`, like `nameMl` and `summaryMl`.
+   For each paper, `en` is English and `ml` is Malayalam.
+5. Save.
 
-## Database
+The new service now shows up everywhere by itself. It gets its own page too.
 
-**Not set up yet. To be provided later.** Until then the app runs on a local file,
-`data/easyserve.db`, which is created on first run and is not in git. That is enough for
-development and for trying the login features on one machine.
+If you do not know the list of papers yet, add the line `listPending: true`. The page will then
+tell people to message you for the list.
 
-The public pages (home, services, terms, privacy) do not use the database at all. Only customer
-accounts, requests and the admin dashboard do.
+## Two languages
 
-### What the database holds
+The website opens in English. The button at the top says **മലയാളം**. Click it and the same page
+opens in Malayalam. Click **English** to go back.
 
-| Table | Contents |
-| --- | --- |
-| `users` | Customer and admin accounts: name, phone, hashed password, role. |
-| `requests` | Requests raised by customers: service, note, status, staff note. |
+- English pages look like `yourdomain.com/services/ration-card`.
+- Malayalam pages look like `yourdomain.com/ml/services/ration-card`.
 
-Tables are created automatically on first connection (see `src/lib/schema.ts`). There is nothing
-to migrate by hand.
+Google sees both. So people who search in Malayalam can find the site too.
 
-### Connecting a real database later
+These pages are in both languages: the home page, the services page and every service page.
 
-The app speaks libSQL, so any hosted libSQL database works. With [Turso](https://turso.tech):
+These pages are in English only for now: login, create account, customer account, staff page,
+terms and privacy.
 
-1. Create a database in the Turso dashboard (pick a region close to India, such as Mumbai).
-2. Copy its URL (`libsql://<name>-<org>.turso.io`) and create an auth token for it.
-3. Set these two variables on the host (and in `.env.local` if you want to use it locally):
+**Please ask someone who reads Malayalam well to check the Malayalam words before launch.** They
+were written for this site and have not been checked by a native speaker. All of them are in two
+files: `src/i18n/dict.ts` and `src/content/services.ts`.
 
-   ```
-   DATABASE_URL=libsql://<name>-<org>.turso.io
-   DATABASE_AUTH_TOKEN=<token>
-   ```
+## The database
 
-4. Create the admin account in that database:
+**This is not set up yet. We will do it later.**
 
-   ```bash
-   npm run create-admin
-   ```
+A database is where the website keeps customer accounts and their requests.
 
-Nothing in the code needs to change. Accounts in the local file are not copied across, so
-customers register again on the live site.
+Right now the website saves these in a small file on your own computer. That is fine for testing.
+It will not work on the live website.
 
-## Deploying
+Good to know:
 
-The site needs a Node.js host (for example Vercel) because of the login features. Serverless hosts
-have a read-only filesystem, so the local file database will not work there: connect a hosted
-database first (see [Database](#database)).
+- The main pages work with no database. Home, services, terms and privacy are all fine.
+- Only login, customer requests and the staff page need the database.
 
-Set on the host:
+### How to set it up later
 
-1. `NEXT_PUBLIC_SITE_URL`: the real domain, no trailing slash.
-2. `SESSION_SECRET`: a fresh value, not the one from your laptop.
-3. `DATABASE_URL` and `DATABASE_AUTH_TOKEN`: from the database step above.
-4. Optionally `NEXT_PUBLIC_GA_ID` for analytics.
+We use a database service called Turso. It has a free plan.
 
-Login attempts are rate limited in memory (five failures in fifteen minutes per number). On
-serverless hosting, add the host's own rate limiting as well.
+1. Go to https://turso.tech and make an account.
+2. Make a new database. Pick the Mumbai region. It is the closest to Kerala.
+3. Copy the database address. It starts with `libsql://`.
+4. Make a token. This is like a key.
+5. In Vercel, open your project. Go to **Settings**, then **Environment Variables**.
+6. Add `DATABASE_URL` and paste the address.
+7. Add `DATABASE_AUTH_TOKEN` and paste the token.
+8. Go to **Deployments** and click **Redeploy**.
+9. Make the staff account in the new database. Put the same two settings in `.env.local` on your
+   computer, then run:
 
-## Still to set up
+```bash
+npm run create-admin
+```
 
-- [ ] Hosted database (`DATABASE_URL`, `DATABASE_AUTH_TOKEN`)
-- [ ] Domain name (`NEXT_PUBLIC_SITE_URL`)
-- [ ] Hosting account and production `SESSION_SECRET`
-- [ ] Admin account on the live database (`npm run create-admin`)
-- [ ] Google Analytics ID, if wanted (`NEXT_PUBLIC_GA_ID`)
+You do not need to change any code. The website makes its own tables the first time it runs.
 
-## Before going live
+## Putting the website online
 
-- Have the terms and privacy policy reviewed. The refund rules and the 90-day document retention
-  period in them are placeholders for the owner to confirm.
-- Replace `public/brand/easyserve-logo.jpg` (150 px, taken from the Instagram profile) with the
-  original logo file.
-- Confirm document lists for the services marked `listPending`.
+The website is hosted on Vercel. Each time you push to GitHub, Vercel updates the live site by
+itself.
+
+For login to work on the live site, add these in Vercel under **Settings**, then **Environment
+Variables**:
+
+1. `SESSION_SECRET`. Make a new one. Do not reuse the one from your computer.
+2. `DATABASE_URL` and `DATABASE_AUTH_TOKEN`. See "The database" above.
+
+Then click **Redeploy**.
+
+Until you do this, the main pages work but login does not.
+
+## Connecting your own domain
+
+A domain is your own website name, like `easyserve.in`.
+
+### Step 1. Buy a domain
+
+Buy one from GoDaddy, Namecheap, Hostinger or any other seller.
+
+### Step 2. Add it in Vercel
+
+1. Open your project in Vercel.
+2. Go to **Settings**, then **Domains**.
+3. Type your domain and click **Add**.
+4. Add it with `www` in front too, like `www.easyserve.in`.
+
+Vercel now shows you some records to copy. Keep this page open.
+
+### Step 3. Add the records where you bought the domain
+
+1. Log in to the site where you bought the domain.
+2. Find the page called **DNS** or **DNS records**.
+3. Add the records Vercel showed you. They usually look like this:
+
+| Type | Name | Value |
+| --- | --- | --- |
+| A | `@` | `76.76.21.21` |
+| CNAME | `www` | `cname.vercel-dns.com` |
+
+Always use the values Vercel shows you. They can be different from the ones above.
+
+4. Save.
+
+### Step 4. Wait
+
+It can take a few minutes. Sometimes it takes up to a day. Vercel shows a green tick when the
+domain is ready. Vercel also adds the lock sign (https) for free.
+
+### Step 5. Tell the website its new name
+
+1. In Vercel, go to **Settings**, then **Environment Variables**.
+2. Add `NEXT_PUBLIC_SITE_URL`. Set it to your full address, like `https://easyserve.in`. No slash
+   at the end.
+3. Click **Redeploy**.
+
+This matters. Google uses this address to know which website is yours.
+
+### Step 6. Tell Google
+
+1. Go to https://search.google.com/search-console.
+2. Add your domain.
+3. Send in your sitemap. It lives at `https://yourdomain.com/sitemap.xml`.
+
+## Things still to do
+
+- [ ] Set up the database
+- [ ] Buy and connect a domain
+- [ ] Add `SESSION_SECRET` in Vercel
+- [ ] Make the staff account on the live site
+- [ ] Add Google Analytics, if you want it
+- [ ] Ask a Malayalam reader to check the Malayalam words. Check the place name നാലാംകല്ല് too.
+- [ ] Swap the logo for the real logo file. The one here is small. It came from Instagram.
+- [ ] Get the list of papers for these services: passport, police clearance certificate,
+      employment registration, Sabarimala virtual queue, scholarships, CV and print and scan.
+- [ ] Ask a lawyer to read the terms and privacy pages. The refund rules and the "we keep your
+      papers for 90 days" rule are first drafts. The owner must say if they are right.
+
+## Good to know about safety
+
+- Passwords are scrambled before they are saved. Nobody can read them, not even staff.
+- If someone types the wrong password 5 times, that number is locked for 15 minutes.
+- Never put `.env.local` on GitHub. It holds your secrets.
+
+## What it is built with
+
+Next.js 16, TypeScript and Tailwind CSS.

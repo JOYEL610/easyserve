@@ -1,80 +1,89 @@
-import Image from "next/image";
 import Link from "next/link";
-import { categories, servicesIn } from "@/content/services";
-import { defaultEnquiry, site, whatsappLink } from "@/lib/site";
+import { categories, localCategory, localize, servicesIn, type Lang } from "@/content/services";
+import { getDict, localePath } from "@/i18n/dict";
+import { site, whatsappLink } from "@/lib/site";
 import { CookieSettingsButton } from "./CookieConsent";
+import { Logo, Wordmark } from "./Logo";
+import { InstagramIcon, PhoneIcon, PinIcon, WhatsAppIcon } from "./icons";
 
-export function Footer() {
+function IconLink({ href, label, children }: { href: string; label: string; children: React.ReactNode }) {
+  const external = href.startsWith("http");
   return (
-    <footer className="bg-forest-950 text-mint-100">
-      <div className="shell grid gap-12 py-14 md:grid-cols-[1.25fr_2fr]">
+    <a
+      href={href}
+      aria-label={label}
+      title={label}
+      {...(external ? { target: "_blank", rel: "noopener" } : {})}
+      className="grid size-11 place-items-center rounded-full border border-white/20 text-mint-100 transition-colors hover:border-turmeric hover:bg-turmeric hover:text-forest-950"
+    >
+      {children}
+    </a>
+  );
+}
+
+export function Footer({ lang }: { lang: Lang }) {
+  const t = getDict(lang);
+
+  return (
+    <footer id="contact" className="scroll-mt-20 bg-forest-950 text-mint-100">
+      <div className="shell grid gap-12 py-14 lg:grid-cols-[1.15fr_2fr]">
         <div>
           <div className="flex items-center gap-3">
-            <Image
-              src="/brand/easyserve-logo.jpg"
-              alt=""
-              width={52}
-              height={52}
-              className="size-[52px] rounded-full"
-            />
-            <div className="leading-none">
-              <p className="text-xl font-extrabold italic tracking-tight text-white">
-                Easy<span className="text-leaf-300">Serve</span>
-              </p>
-              <p className="mt-1.5 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-mint-200">
-                {site.tagline}
-              </p>
-            </div>
+            <Logo className="size-14" />
+            <Wordmark tone="light" tagline={t.tagline} />
           </div>
 
-          <address className="mt-6 not-italic leading-relaxed text-mint-100">
-            {site.address.line1}
+          <h2 className="mt-8 text-xs font-extrabold uppercase tracking-[0.16em] text-leaf-300">
+            {t.footer.contact}
+          </h2>
+          <address className="mt-3 not-italic leading-relaxed text-mint-100">
+            <span lang="en" className="font-bold text-white">
+              {site.legalName}
+            </span>
             <br />
-            {site.address.line2}
+            {t.address[0]}
             <br />
-            {site.address.line3}
+            {t.address[1]}
           </address>
+          <p className="mt-3">
+            <a
+              href={`tel:${site.phoneE164}`}
+              className="text-lg font-extrabold tabular-nums text-white hover:underline"
+            >
+              {site.phoneDisplay}
+            </a>
+          </p>
 
-          <ul className="mt-5 space-y-2 text-sm font-bold">
-            <li>
-              <a href={`tel:${site.phoneE164}`} className="hover:text-white hover:underline">
-                Call {site.phoneDisplay}
-              </a>
-            </li>
-            <li>
-              <a
-                href={whatsappLink(defaultEnquiry)}
-                target="_blank"
-                rel="noopener"
-                className="hover:text-white hover:underline"
-              >
-                WhatsApp {site.phoneDisplay}
-              </a>
-            </li>
-            <li>
-              <a href={site.instagram} target="_blank" rel="noopener" className="hover:text-white hover:underline">
-                Instagram @easyserve610
-              </a>
-            </li>
-            <li>
-              <a href={site.mapsUrl} target="_blank" rel="noopener" className="hover:text-white hover:underline">
-                Directions on Google Maps
-              </a>
-            </li>
-          </ul>
+          <div className="mt-5 flex flex-wrap gap-2.5">
+            <IconLink href={whatsappLink(t.enquiryMessage)} label={t.footer.whatsapp}>
+              <WhatsAppIcon className="size-5" />
+            </IconLink>
+            <IconLink href={site.instagram} label={t.footer.instagram}>
+              <InstagramIcon className="size-5" />
+            </IconLink>
+            <IconLink href={`tel:${site.phoneE164}`} label={t.footer.phone}>
+              <PhoneIcon className="size-5" />
+            </IconLink>
+            <IconLink href={site.mapsUrl} label={t.footer.maps}>
+              <PinIcon className="size-5" />
+            </IconLink>
+          </div>
         </div>
 
-        <nav aria-label="Services" className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        <nav aria-label={t.nav.services} className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {categories.map((category) => (
             <div key={category.id}>
               <h2 className="text-xs font-extrabold uppercase tracking-[0.16em] text-leaf-300">
-                {category.name}
+                {localCategory(category.id, lang).name}
               </h2>
               <ul className="mt-3 space-y-2 text-sm">
                 {servicesIn(category.id).map((service) => (
                   <li key={service.slug}>
-                    <Link href={`/services/${service.slug}`} className="text-mint-100 hover:text-white hover:underline">
-                      {service.name}
+                    <Link
+                      href={localePath(lang, `/services/${service.slug}`)}
+                      className="text-mint-100 hover:text-white hover:underline"
+                    >
+                      {localize(service, lang).name}
                     </Link>
                   </li>
                 ))}
@@ -86,20 +95,18 @@ export function Footer() {
 
       <div className="border-t border-white/10">
         <div className="shell space-y-4 py-6 text-sm text-mint-200">
-          <p className="max-w-3xl leading-relaxed">
-            EasyServe is a privately run service centre. We are not a government office and are not
-            affiliated with any government department. Certificates and approvals are issued by the
-            department concerned.
-          </p>
+          <p className="max-w-3xl leading-relaxed">{t.footer.disclaimer}</p>
           <div className="flex flex-wrap items-center gap-x-6 gap-y-2 font-bold">
             <Link href="/terms" className="hover:text-white hover:underline">
-              Terms and conditions
+              {t.footer.terms}
             </Link>
             <Link href="/privacy" className="hover:text-white hover:underline">
-              Privacy policy
+              {t.footer.privacy}
             </Link>
-            <CookieSettingsButton />
-            <span className="font-normal sm:ml-auto">© 2026 {site.legalName}</span>
+            <CookieSettingsButton label={t.footer.cookies} />
+            <span lang="en" className="font-normal sm:ml-auto">
+              © 2026 {site.legalName}
+            </span>
           </div>
         </div>
       </div>
