@@ -1,26 +1,207 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-manrope), var(--font-anek-ml), ui-sans-serif, system-ui, sans-serif;
+  --font-ml: var(--font-anek-ml), var(--font-manrope), sans-serif;
+
+  --color-forest-950: #04260c;
+  --color-forest-900: #06350f;
+  --color-forest-800: #0b4a18;
+  --color-forest-700: #0f5e20;
+  --color-leaf-700: #0b7f18;
+  --color-leaf-600: #0e9a1e;
+  --color-leaf-500: #17ae2a;
+  --color-leaf-300: #86d68f;
+  --color-mint-200: #cfe9cf;
+  --color-mint-100: #e3f3e3;
+  --color-paper: #f4f9f2;
+  --color-ink: #0a1f0e;
+  --color-ink-soft: #3d5241;
+  --color-turmeric: #f5c518;
+  --color-rule: #d5e4d3;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5.5rem;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-feature-settings: "ss01", "cv11";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Malayalam needs a little more leading than Latin at the same size. */
+:lang(ml) {
+  font-family: var(--font-ml);
+  line-height: 1.75;
+}
+
+::selection {
+  background: var(--color-turmeric);
+  color: var(--color-ink);
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-turmeric);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+@layer components {
+  .shell {
+    width: 100%;
+    max-width: 76rem;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+  @media (min-width: 768px) {
+    .shell {
+      padding-inline: 2rem;
+    }
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    min-height: 2.9rem;
+    padding: 0.7rem 1.25rem;
+    border-radius: 0.6rem;
+    font-weight: 700;
+    font-size: 0.95rem;
+    line-height: 1.2;
+    transition: background-color 140ms ease, color 140ms ease, border-color 140ms ease, transform 140ms ease;
+  }
+  .btn:active {
+    transform: translateY(1px);
+  }
+  .btn-primary {
+    background: var(--color-leaf-700);
+    color: #fff;
+  }
+  .btn-primary:hover {
+    background: var(--color-forest-800);
+  }
+  .btn-on-dark {
+    background: var(--color-turmeric);
+    color: var(--color-forest-950);
+  }
+  .btn-on-dark:hover {
+    background: #ffd84a;
+  }
+  .btn-ghost {
+    border: 1.5px solid var(--color-rule);
+    background: #fff;
+    color: var(--color-forest-900);
+  }
+  .btn-ghost:hover {
+    border-color: var(--color-leaf-700);
+  }
+  .btn[disabled],
+  .btn[aria-disabled="true"] {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  .field {
+    width: 100%;
+    min-height: 2.9rem;
+    padding: 0.65rem 0.85rem;
+    border: 1.5px solid var(--color-rule);
+    border-radius: 0.6rem;
+    background: #fff;
+    color: var(--color-ink);
+    font-size: 1rem;
+  }
+  .field:focus {
+    border-color: var(--color-leaf-700);
+    outline: 3px solid color-mix(in srgb, var(--color-leaf-500) 30%, transparent);
+    outline-offset: 0;
+  }
+  .label {
+    display: block;
+    margin-bottom: 0.35rem;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--color-forest-900);
+  }
+
+  /* The checklist slip: a paper list with a perforated top edge,
+     like the list a service-centre counter hands you. */
+  .slip {
+    position: relative;
+    background: #fff;
+    color: var(--color-ink);
+    border-radius: 0 0 0.9rem 0.9rem;
+    box-shadow: 0 1px 0 var(--color-rule), 0 18px 40px -22px rgb(4 38 12 / 0.45);
+  }
+  .slip::before {
+    content: "";
+    position: absolute;
+    inset: -9px 0 auto 0;
+    height: 10px;
+    background: radial-gradient(circle at 9px 0, transparent 6px, #fff 6.5px) 0 0 / 18px 10px repeat-x;
+  }
+
+  .prose-legal h2 {
+    margin-top: 2.5rem;
+    margin-bottom: 0.75rem;
+    font-size: 1.3rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    color: var(--color-forest-900);
+  }
+  .prose-legal h3 {
+    margin-top: 1.5rem;
+    margin-bottom: 0.4rem;
+    font-size: 1.02rem;
+    font-weight: 800;
+    color: var(--color-forest-900);
+  }
+  .prose-legal p,
+  .prose-legal li {
+    color: var(--color-ink-soft);
+    line-height: 1.75;
+  }
+  .prose-legal p {
+    margin-bottom: 0.9rem;
+  }
+  .prose-legal ul {
+    margin: 0 0 1rem 1.15rem;
+    list-style: disc;
+  }
+  .prose-legal li {
+    margin-bottom: 0.35rem;
+  }
+  .prose-legal a {
+    color: var(--color-leaf-700);
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .prose-legal strong {
+    color: var(--color-ink);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }
