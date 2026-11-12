@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 import { ChecklistSlip } from "@/components/ChecklistSlip";
 import { JsonLd } from "@/components/JsonLd";
 import { ArrowIcon, PhoneIcon, WhatsAppIcon } from "@/components/icons";
@@ -31,7 +32,20 @@ export async function generateMetadata({ params }: PageProps<"/services/[slug]">
   };
 }
 
-export default async function ServicePage({ params }: PageProps<"/services/[slug]">) {
+/**
+ * The page shell is shared by every service URL, so the slug is read inside
+ * a Suspense boundary. Each known slug is still fully prerendered at build
+ * time through generateStaticParams.
+ */
+export default function ServicePage({ params }: PageProps<"/services/[slug]">) {
+  return (
+    <Suspense fallback={<div className="min-h-[60vh] bg-forest-900" aria-busy="true" />}>
+      <ServiceContent params={params} />
+    </Suspense>
+  );
+}
+
+async function ServiceContent({ params }: Pick<PageProps<"/services/[slug]">, "params">) {
   const { slug } = await params;
   const service = getService(slug);
   if (!service) notFound();

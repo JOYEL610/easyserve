@@ -36,6 +36,7 @@ async function Dashboard({ searchParams }: { searchParams: Promise<{ status?: st
   ]);
 
   const countFor = (id: string) => Number(counts.rows.find((row) => row.status === id)?.total ?? 0);
+  const customerCount = Number(customers.rows[0]?.total ?? 0);
   const total = counts.rows.reduce((sum, row) => sum + Number(row.total), 0);
 
   const chip = (active: boolean) =>
@@ -52,7 +53,7 @@ async function Dashboard({ searchParams }: { searchParams: Promise<{ status?: st
             Customer requests
           </h1>
           <p className="mt-1 text-ink-soft">
-            Signed in as {admin.name}. {Number(customers.rows[0]?.total ?? 0)} customer accounts.
+            Signed in as {admin.name}. {customerCount} customer {customerCount === 1 ? "account" : "accounts"}.
           </p>
         </div>
         <form action={logout}>

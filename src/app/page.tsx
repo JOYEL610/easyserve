@@ -28,7 +28,7 @@ export default function HomePage() {
   return (
     <>
       <section className="bg-forest-900 text-white">
-        <div className="shell py-14 md:py-20">
+        <div className="shell py-12 md:py-16">
           <HeroFinder
             services={services}
             initialSlug="income-certificate"
@@ -45,14 +45,14 @@ export default function HomePage() {
               <span aria-hidden="true"> · </span>
               Nallamkallu, Edakkazhiyur
             </p>
-            <h1 className="mt-4 max-w-2xl text-[2.35rem] font-extrabold leading-[1.08] tracking-[-0.03em] sm:text-5xl lg:text-[3.4rem]">
+            <h1 className="mt-4 max-w-2xl text-[2.2rem] font-extrabold leading-[1.08] tracking-[-0.03em] sm:text-[2.7rem] lg:text-[3rem]">
               Government certificates and applications, done from wherever you are.
             </h1>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-mint-100">
+            <p className="mt-5 max-w-xl text-lg leading-relaxed text-mint-100">
               Send your documents on WhatsApp. We file the application and send the certificate back
               to you. Pick a service to see what to bring.
             </p>
-            <p lang="ml" className="mt-3 max-w-xl text-base text-mint-200">
+            <p lang="ml" className="mt-2 max-w-xl text-base text-mint-200">
               സർക്കാർ സേവനങ്ങൾക്കായി ഇനി ഓഫീസുകൾ തേടി അലയേണ്ടതില്ല.
             </p>
           </HeroFinder>

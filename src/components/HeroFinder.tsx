@@ -5,15 +5,18 @@ import type { Service } from "@/content/services";
 import { ChecklistSlip } from "./ChecklistSlip";
 import { SearchIcon } from "./icons";
 
+/** Every typed word must start a word in the service's name, options or aliases. */
 function matches(service: Service, query: string): boolean {
-  const haystack = [service.name, service.nameMl, ...service.keywords, ...service.variants.map((v) => v.name)]
+  const words = [service.name, service.nameMl, ...service.keywords, ...service.variants.map((v) => v.name)]
     .join(" ")
-    .toLowerCase();
+    .toLowerCase()
+    .split(/[^\p{L}\p{M}\p{N}]+/u)
+    .filter(Boolean);
   return query
     .toLowerCase()
-    .split(/\s+/)
+    .split(/[^\p{L}\p{M}\p{N}]+/u)
     .filter(Boolean)
-    .every((word) => haystack.includes(word));
+    .every((term) => words.some((word) => word.startsWith(term)));
 }
 
 /**
@@ -50,7 +53,7 @@ export function HeroFinder({
       <div>
         {children}
 
-        <div className="mt-9 max-w-xl">
+        <div className="mt-7 max-w-xl">
           <label htmlFor="service-search" className="block text-sm font-bold text-mint-100">
             Which service do you need?
           </label>

@@ -25,7 +25,7 @@ function MenuLink({ href, title, hint }: { href: string; title: string; hint?: s
 export function Header() {
   return (
     <header className="sticky top-0 z-30 border-b border-rule bg-white/95 backdrop-blur">
-      <div className="shell flex h-[4.25rem] items-center justify-between gap-3">
+      <div className="shell flex h-[4.25rem] items-center justify-between gap-2 sm:gap-3">
         <Link href="/" className="flex items-center gap-2.5" aria-label={`${site.legalName} home`}>
           <Image
             src="/brand/easyserve-logo.jpg"
@@ -33,13 +33,13 @@ export function Header() {
             width={46}
             height={46}
             priority
-            className="size-[46px] rounded-full ring-1 ring-rule"
+            className="size-10 rounded-full ring-1 ring-rule sm:size-[46px]"
           />
           <span className="leading-none">
             <span className="block text-[1.15rem] font-extrabold italic tracking-tight text-forest-900">
               Easy<span className="text-leaf-600">Serve</span>
             </span>
-            <span className="mt-1 block text-[0.62rem] font-bold uppercase tracking-[0.2em] text-ink-soft">
+            <span className="mt-1 hidden whitespace-nowrap text-[0.62rem] font-bold uppercase tracking-[0.2em] text-ink-soft min-[420px]:block">
               {site.tagline}
             </span>
           </span>
@@ -57,10 +57,15 @@ export function Header() {
           ))}
         </nav>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1 sm:gap-2">
           <Dropdown
-            label="Log in"
-            buttonClassName="inline-flex min-h-[2.75rem] items-center gap-1 rounded-lg px-3 text-sm font-bold text-forest-900 hover:bg-mint-100"
+            label={
+              <>
+                <span className="md:hidden">Menu</span>
+                <span className="hidden md:inline">Log in</span>
+              </>
+            }
+            buttonClassName="inline-flex min-h-[2.75rem] items-center gap-1 whitespace-nowrap rounded-lg px-2.5 text-sm font-bold text-forest-900 hover:bg-mint-100 sm:px-3"
           >
             <div className="md:hidden">
               {nav.map((item) => (
