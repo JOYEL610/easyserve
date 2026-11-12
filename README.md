@@ -54,18 +54,70 @@ services page, the footer, the sitemap and the customer request form, and gets i
 `/services/<slug>`. Set `listPending: true` when the document list is not confirmed yet; the page
 then asks people to message for the list instead of showing one.
 
+## Database
+
+**Not set up yet. To be provided later.** Until then the app runs on a local file,
+`data/easyserve.db`, which is created on first run and is not in git. That is enough for
+development and for trying the login features on one machine.
+
+The public pages (home, services, terms, privacy) do not use the database at all. Only customer
+accounts, requests and the admin dashboard do.
+
+### What the database holds
+
+| Table | Contents |
+| --- | --- |
+| `users` | Customer and admin accounts: name, phone, hashed password, role. |
+| `requests` | Requests raised by customers: service, note, status, staff note. |
+
+Tables are created automatically on first connection (see `src/lib/schema.ts`). There is nothing
+to migrate by hand.
+
+### Connecting a real database later
+
+The app speaks libSQL, so any hosted libSQL database works. With [Turso](https://turso.tech):
+
+1. Create a database in the Turso dashboard (pick a region close to India, such as Mumbai).
+2. Copy its URL (`libsql://<name>-<org>.turso.io`) and create an auth token for it.
+3. Set these two variables on the host (and in `.env.local` if you want to use it locally):
+
+   ```
+   DATABASE_URL=libsql://<name>-<org>.turso.io
+   DATABASE_AUTH_TOKEN=<token>
+   ```
+
+4. Create the admin account in that database:
+
+   ```bash
+   npm run create-admin
+   ```
+
+Nothing in the code needs to change. Accounts in the local file are not copied across, so
+customers register again on the live site.
+
 ## Deploying
 
-The site needs a Node.js host (for example Vercel) because of the login features.
+The site needs a Node.js host (for example Vercel) because of the login features. Serverless hosts
+have a read-only filesystem, so the local file database will not work there: connect a hosted
+database first (see [Database](#database)).
 
-1. Set `NEXT_PUBLIC_SITE_URL` to the real domain.
-2. Set a fresh `SESSION_SECRET`.
-3. Point `DATABASE_URL` and `DATABASE_AUTH_TOKEN` at a hosted libSQL / Turso database. Serverless
-   hosts have a read-only filesystem, so the local file database will not work there.
-4. Run `npm run create-admin` once against that database to create the admin account.
+Set on the host:
+
+1. `NEXT_PUBLIC_SITE_URL`: the real domain, no trailing slash.
+2. `SESSION_SECRET`: a fresh value, not the one from your laptop.
+3. `DATABASE_URL` and `DATABASE_AUTH_TOKEN`: from the database step above.
+4. Optionally `NEXT_PUBLIC_GA_ID` for analytics.
 
 Login attempts are rate limited in memory (five failures in fifteen minutes per number). On
 serverless hosting, add the host's own rate limiting as well.
+
+## Still to set up
+
+- [ ] Hosted database (`DATABASE_URL`, `DATABASE_AUTH_TOKEN`)
+- [ ] Domain name (`NEXT_PUBLIC_SITE_URL`)
+- [ ] Hosting account and production `SESSION_SECRET`
+- [ ] Admin account on the live database (`npm run create-admin`)
+- [ ] Google Analytics ID, if wanted (`NEXT_PUBLIC_GA_ID`)
 
 ## Before going live
 
