@@ -141,13 +141,6 @@ export function ServiceView({ lang, slug }: { lang: Lang; slug: string }) {
                 {t.call} {site.phoneDisplay}
               </a>
             </div>
-            <p className="mt-5 border-t border-rule pt-4 text-sm leading-relaxed text-ink-soft">
-              {page.account[0]}{" "}
-              <Link href="/login" className="font-bold text-leaf-700 underline underline-offset-2">
-                {page.account[1]}
-              </Link>{" "}
-              {page.account[2]}
-            </p>
           </div>
 
           {related.length > 0 ? (

@@ -1,7 +1,7 @@
 import type { Lang } from "@/content/services";
 import { getDict, localePath } from "@/i18n/dict";
 import { site, whatsappLink } from "@/lib/site";
-import { AccountMenu, HomeLink, NavLinks } from "./HeaderParts";
+import { HomeLink, MobileMenu, NavLinks } from "./HeaderParts";
 import { LangSwitch } from "./LangSwitch";
 import { Logo, Wordmark } from "./Logo";
 import { WhatsAppIcon } from "./icons";
@@ -26,7 +26,7 @@ export function Header({ lang }: { lang: Lang }) {
 
         <div className="flex items-center gap-1.5 sm:gap-2">
           <LangSwitch />
-          <AccountMenu lang={lang} nav={nav} />
+          <MobileMenu lang={lang} nav={nav} />
           <a
             href={whatsappLink(t.enquiryMessage)}
             target="_blank"
