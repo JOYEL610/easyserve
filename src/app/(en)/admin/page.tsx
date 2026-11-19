@@ -42,6 +42,9 @@ async function Dashboard({ searchParams }: { searchParams: Promise<{ status?: st
   const consentCounts = await client.execute(
     "SELECT choice, COUNT(*) AS total, COUNT(DISTINCT user_id) AS linked FROM cookie_consents GROUP BY choice",
   );
+  const linkedConsents = await client.execute(
+    "SELECT COUNT(DISTINCT user_id) AS total FROM cookie_consents WHERE user_id IS NOT NULL",
+  );
   const consentRecords = await client.execute(
     `SELECT c.choice, c.updated_at, u.name AS customer_name, u.phone AS customer_phone
      FROM cookie_consents c LEFT JOIN users u ON u.id = c.user_id
@@ -49,10 +52,7 @@ async function Dashboard({ searchParams }: { searchParams: Promise<{ status?: st
   );
   const consentCount = (choice: string) =>
     Number(consentCounts.rows.find((row) => row.choice === choice)?.total ?? 0);
-  const linkedConsentCount = consentCounts.rows.reduce(
-    (sum, row) => sum + Number(row.linked ?? 0),
-    0,
-  );
+  const linkedConsentCount = Number(linkedConsents.rows[0]?.total ?? 0);
 
   const chip = (active: boolean) =>
     `inline-flex min-h-[2.5rem] items-center gap-2 rounded-full border px-4 text-sm font-bold ${
