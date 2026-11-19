@@ -5,6 +5,7 @@ import bcrypt from "bcryptjs";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { db } from "@/lib/db";
+import { linkConsentToUser } from "@/lib/consent";
 import { normalizePhone } from "@/lib/phone";
 import { clearFailures, isLocked, recordFailure } from "@/lib/rate-limit";
 import { createSession, destroySession, type Role } from "@/lib/session";
@@ -69,6 +70,7 @@ export async function registerCustomer(_prev: FormState, formData: FormData): Pr
   });
 
   await createSession(id, "customer");
+  await linkConsentToUser(id);
   redirect("/account");
 }
 
@@ -99,6 +101,7 @@ async function login(role: Role, formData: FormData): Promise<FormState> {
 
   clearFailures(limitKey);
   await createSession(String(row.id), role);
+  if (role === "customer") await linkConsentToUser(String(row.id));
   redirect(role === "admin" ? "/admin" : "/account");
 }
 
