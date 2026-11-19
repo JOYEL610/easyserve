@@ -68,6 +68,12 @@ function clearAnalyticsCookies() {
 function saveConsent(choice: Consent) {
   const secure = location.protocol === "https:" ? "; Secure" : "";
   document.cookie = `${COOKIE}=${choice}; Max-Age=${SIX_MONTHS}; Path=/; SameSite=Lax${secure}`;
+  void fetch("/api/consent", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ choice }),
+    keepalive: true,
+  }).catch(() => {});
   if (choice === "essential") clearAnalyticsCookies();
   reopened = false;
   emit();
