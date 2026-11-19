@@ -22,7 +22,7 @@ export async function linkConsentToUser(userId: string): Promise<void> {
   await client.execute({
     sql: `INSERT INTO cookie_consents (visitor_id, user_id, choice, updated_at)
           VALUES (?, ?, ?, ?)
-          ON CONFLICT(visitor_id) DO UPDATE SET user_id = excluded.user_id`,
+          ON CONFLICT(visitor_id) DO UPDATE SET user_id = COALESCE(cookie_consents.user_id, excluded.user_id)`,
     args: [visitorId, userId, choice, new Date().toISOString()],
   });
 }
