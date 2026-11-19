@@ -23,6 +23,14 @@ export const schema: string[] = [
   )`,
   `CREATE INDEX IF NOT EXISTS requests_user ON requests(user_id)`,
   `CREATE INDEX IF NOT EXISTS requests_status ON requests(status)`,
+  `CREATE TABLE IF NOT EXISTS cookie_consents (
+    visitor_id TEXT PRIMARY KEY,
+    user_id TEXT REFERENCES users(id) ON DELETE SET NULL,
+    choice TEXT NOT NULL CHECK (choice IN ('all', 'essential')),
+    updated_at TEXT NOT NULL
+  )`,
+  `CREATE INDEX IF NOT EXISTS cookie_consents_user ON cookie_consents(user_id)`,
+  `CREATE INDEX IF NOT EXISTS cookie_consents_updated ON cookie_consents(updated_at)`,
 ];
 
 export const DEFAULT_DATABASE_URL = "file:./data/easyserve.db";
