@@ -18,7 +18,7 @@ certificates and PAN cards.
 - Has an "Enquire now" button. It opens WhatsApp so people can message EasyServe.
 - Lets customers make an account and see how their work is going.
 - Lets EasyServe staff log in and update each customer's work.
-- Has a terms page, a privacy page and a cookie pop-up.
+- Has a terms page, a privacy page and a cookie pop-up. Staff can view cookie choices and counts in the admin area; account choices are linked to the customer when they are signed in or next sign in on that browser.
 - Is built so Google can find it easily.
 
 ## How to run it on your computer
@@ -120,7 +120,7 @@ files: `src/i18n/dict.ts` and `src/content/services.ts`.
 A database is where the website keeps customer accounts and their requests.
 
 Right now the website saves these in a small file on your own computer. That is fine for testing.
-It will not work on the live website.
+It will not work on the live website. The cookie choice report also needs the Turso database to keep records on the live website.
 
 Good to know:
 
