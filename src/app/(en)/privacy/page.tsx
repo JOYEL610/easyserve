@@ -13,7 +13,7 @@ export default function PrivacyPage() {
   return (
     <LegalPage
       title="Privacy policy"
-      updated="12 November 2026"
+      updated="20 November 2026"
       intro="To file a government application we have to handle your identity documents. This page says what we collect, why, who sees it, how long we keep it and what you can ask us to do."
     >
       <h2>1. Who is responsible</h2>
@@ -35,6 +35,7 @@ export default function PrivacyPage() {
         <li><strong>One-time passwords (OTPs)</strong> you read out or send to us while an application is being filed. They are used once and not stored.</li>
         <li><strong>Account details,</strong> if you create an account: name, mobile number and a password. The password is stored only as a one-way hash, so we cannot read it.</li>
         <li><strong>Request records:</strong> the service you asked for, your notes, the status and our notes to you.</li>
+        <li><strong>Cookie choice records:</strong> your latest choice and the time it was saved, linked to your account if you are signed in or next sign in on the same browser.</li>
         <li><strong>Cookies,</strong> as set out in section 10.</li>
       </ul>
 
@@ -125,6 +126,7 @@ export default function PrivacyPage() {
         <li><strong>es_session</strong> keeps you logged in. Set when you log in, removed when you log out, expires after 7 days.</li>
         <li><strong>es_role</strong> lets the menu show “My account” while you are logged in. Set and removed together with es_session.</li>
         <li><strong>es_consent</strong> remembers your cookie choice. Expires after 6 months.</li>
+        <li><strong>Cookie choice record:</strong> we save your latest choice and when you made it, using a random browser identifier. If you are signed in when you choose, or next sign in on that browser, the choice is linked to your customer account. EasyServe staff can view these records in the admin area and use the totals to understand cookie choices. We do not use them for advertising.</li>
       </ul>
       <h3>Analytics cookies (only if you accept)</h3>
       <p>
