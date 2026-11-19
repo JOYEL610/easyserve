@@ -63,7 +63,7 @@ const en = {
   },
 
   slip: {
-    subtitle: "Documents to bring",
+    subtitle: "The documents you need to send us",
     ready: (a: number, b: number) => `${a} of ${b} ready`,
     send: "Send this list on WhatsApp",
     ask: "Ask what to bring",
