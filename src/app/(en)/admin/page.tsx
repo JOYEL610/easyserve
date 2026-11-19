@@ -39,6 +39,21 @@ async function Dashboard({ searchParams }: { searchParams: Promise<{ status?: st
   const customerCount = Number(customers.rows[0]?.total ?? 0);
   const total = counts.rows.reduce((sum, row) => sum + Number(row.total), 0);
 
+  const consentCounts = await client.execute(
+    "SELECT choice, COUNT(*) AS total, COUNT(DISTINCT user_id) AS linked FROM cookie_consents GROUP BY choice",
+  );
+  const consentRecords = await client.execute(
+    `SELECT c.choice, c.updated_at, u.name AS customer_name, u.phone AS customer_phone
+     FROM cookie_consents c LEFT JOIN users u ON u.id = c.user_id
+     ORDER BY c.updated_at DESC LIMIT 100`,
+  );
+  const consentCount = (choice: string) =>
+    Number(consentCounts.rows.find((row) => row.choice === choice)?.total ?? 0);
+  const linkedConsentCount = consentCounts.rows.reduce(
+    (sum, row) => sum + Number(row.linked ?? 0),
+    0,
+  );
+
   const chip = (active: boolean) =>
     `inline-flex min-h-[2.5rem] items-center gap-2 rounded-full border px-4 text-sm font-bold ${
       active ? "border-forest-900 bg-forest-900 text-white" : "border-rule bg-white text-forest-900 hover:border-leaf-700"
@@ -72,6 +87,64 @@ async function Dashboard({ searchParams }: { searchParams: Promise<{ status?: st
           </Link>
         ))}
       </nav>
+
+      <section aria-labelledby="cookie-consent" className="mt-8 rounded-xl border border-rule bg-white p-5 md:p-6">
+        <h2 id="cookie-consent" className="text-xl font-extrabold text-forest-900">
+          Cookie consent records
+        </h2>
+        <p className="mt-1 text-sm leading-relaxed text-ink-soft">
+          Latest saved choice per browser. Choices are linked to a customer account when made while signed in,
+          or when that browser next signs in.
+        </p>
+        <dl className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="rounded-lg bg-paper p-4">
+            <dt className="text-sm text-ink-soft">Accepted all cookies</dt>
+            <dd className="mt-1 text-2xl font-extrabold tabular-nums text-forest-900">{consentCount("all")}</dd>
+          </div>
+          <div className="rounded-lg bg-paper p-4">
+            <dt className="text-sm text-ink-soft">Essential cookies only</dt>
+            <dd className="mt-1 text-2xl font-extrabold tabular-nums text-forest-900">{consentCount("essential")}</dd>
+          </div>
+          <div className="rounded-lg bg-paper p-4">
+            <dt className="text-sm text-ink-soft">Total browsers recorded</dt>
+            <dd className="mt-1 text-2xl font-extrabold tabular-nums text-forest-900">{consentCount("all") + consentCount("essential")}</dd>
+          </div>
+          <div className="rounded-lg bg-paper p-4">
+            <dt className="text-sm text-ink-soft">Linked customer accounts</dt>
+            <dd className="mt-1 text-2xl font-extrabold tabular-nums text-forest-900">{linkedConsentCount}</dd>
+          </div>
+        </dl>
+        {consentRecords.rows.length === 0 ? (
+          <p className="mt-5 text-sm text-ink-soft">No cookie choices have been recorded yet.</p>
+        ) : (
+          <div className="mt-5 overflow-x-auto">
+            <table className="w-full min-w-[38rem] text-left text-sm">
+              <thead>
+                <tr className="border-b border-rule text-ink-soft">
+                  <th scope="col" className="px-3 py-2 font-bold">Customer</th>
+                  <th scope="col" className="px-3 py-2 font-bold">Choice</th>
+                  <th scope="col" className="px-3 py-2 font-bold">Last updated</th>
+                </tr>
+              </thead>
+              <tbody>
+                {consentRecords.rows.map((row, index) => (
+                  <tr key={index} className="border-b border-rule last:border-0">
+                    <td className="px-3 py-3">
+                      {row.customer_name
+                        ? `${String(row.customer_name)} · ${formatPhone(String(row.customer_phone))}`
+                        : "Not linked to a customer account"}
+                    </td>
+                    <td className="px-3 py-3 font-bold">
+                      {row.choice === "all" ? "Accepted all cookies" : "Essential cookies only"}
+                    </td>
+                    <td className="px-3 py-3 text-ink-soft">{formatDate(String(row.updated_at))}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </section>
 
       {requests.rows.length === 0 ? (
         <p className="mt-8 rounded-xl border border-dashed border-rule bg-white p-8 leading-relaxed text-ink-soft">
